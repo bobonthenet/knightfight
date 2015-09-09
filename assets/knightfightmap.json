@@ -1,11 +1,11 @@
 { "backgroundcolor":"#55ffff",
- "height":10,
+ "height":12,
  "layers":[
         {
          "compression":"zlib",
-         "data":"eJxjYBgFo2AUjIJRMAqGFlBAwqOA+kCBDEyuPlphavuPWHuIsX8kAgU8mNb2IAMzHGpMqeyOUUAcUMaDYQAUZ\/JYsDldXToKYEAFDx4F1AEAvv4OhQ==",
+         "data":"eJzt0cEJwCAMQFE3acCuoN1\/M\/Eg9aChhKQg\/Af\/KEkwJQAAziJT8CeGrO+i8r7PMgcvUYqas1I3OxTnPfBNVhr6n12Lnl83xXArAUC0BtEFDgU=",
          "encoding":"base64",
-         "height":10,
+         "height":12,
          "name":"collision",
          "opacity":1,
          "properties":
@@ -17,10 +17,10 @@
          "width":100,
          "x":0,
          "y":0
-        },
+        }, 
         {
          "draworder":"topdown",
-         "height":10,
+         "height":0,
          "name":"objectlayer",
          "objects":[
                 {
@@ -42,15 +42,15 @@
          "opacity":0.899999976158142,
          "type":"objectgroup",
          "visible":true,
-         "width":100,
+         "width":0,
          "x":0,
          "y":0
-        },
+        }, 
         {
          "compression":"zlib",
-         "data":"eJztwTEBAAAAwqD1T20MH6AAAACAtwEPoAAB",
+         "data":"eJztwTEBAAAAwqD1T20ND6AAAAAA4NcAEsAAAQ==",
          "encoding":"base64",
-         "height":10,
+         "height":12,
          "name":"background",
          "opacity":1,
          "type":"tilelayer",
