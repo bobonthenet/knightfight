@@ -1,27 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="12" tilewidth="8" tileheight="8" backgroundcolor="#55ffff" nextobjectid="2">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="10" tilewidth="8" tileheight="8" backgroundcolor="#55ffff" nextobjectid="1">
  <tileset firstgid="1" name="spritesheet" tilewidth="8" tileheight="8" spacing="1" margin="1" tilecount="336">
   <image source="1.png" trans="ffffff" width="196" height="147"/>
  </tileset>
- <layer name="collision" width="100" height="12">
-  <properties>
-   <property name="collision" value="true"/>
-  </properties>
+ <layer name="Tile Layer 1" width="100" height="10">
   <data encoding="base64" compression="zlib">
-   eJzt0cEJwCAMQFE3acCuoN1/M/Eg9aChhKQg/Af/KEkwJQAAziJT8CeGrO+i8r7PMgcvUYqas1I3OxTnPfBNVhr6n12Lnl83xXArAUC0BtEFDgU=
-  </data>
- </layer>
- <objectgroup name="objectlayer" opacity="0.9">
-  <object id="1" name="player" type="player" x="41.25" y="48.5" width="5.75" height="6">
-   <properties>
-    <property name="group" value="players"/>
-    <property name="texture" value="player_spritesheet"/>
-   </properties>
-  </object>
- </objectgroup>
- <layer name="background" width="100" height="12">
-  <data encoding="base64" compression="zlib">
-   eJztwTEBAAAAwqD1T20ND6AAAAAA4NcAEsAAAQ==
+   eJzt09sJACAIQFEncv/xmqCUfEXcA35FmlYiAADgRTp9gAZqREc9755onazI5s2fcQ6rn91aZf8RGXdYNddTvpt61e9wSscfs+r9NE/ELQSNElU=
   </data>
  </layer>
 </map>

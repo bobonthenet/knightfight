@@ -1,57 +1,12 @@
 { "backgroundcolor":"#55ffff",
- "height":12,
+ "height":10,
  "layers":[
         {
          "compression":"zlib",
-         "data":"eJzt0cEJwCAMQFE3acCuoN1\/M\/Eg9aChhKQg\/Af\/KEkwJQAAziJT8CeGrO+i8r7PMgcvUYqas1I3OxTnPfBNVhr6n12Lnl83xXArAUC0BtEFDgU=",
+         "data":"eJzt09sJACAIQFEncv\/xmqCUfEXcA35FmlYiAADgRTp9gAZqREc9755onazI5s2fcQ6rn91aZf8RGXdYNddTvpt61e9wSscfs+r9NE\/ELQSNElU=",
          "encoding":"base64",
-         "height":12,
-         "name":"collision",
-         "opacity":1,
-         "properties":
-            {
-             "collision":"true"
-            },
-         "type":"tilelayer",
-         "visible":true,
-         "width":100,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "draworder":"topdown",
-         "height":0,
-         "name":"objectlayer",
-         "objects":[
-                {
-                 "height":6,
-                 "id":1,
-                 "name":"player",
-                 "properties":
-                    {
-                     "group":"players",
-                     "texture":"player_spritesheet"
-                    },
-                 "rotation":0,
-                 "type":"player",
-                 "visible":true,
-                 "width":5.75,
-                 "x":41.25,
-                 "y":48.5
-                }],
-         "opacity":0.899999976158142,
-         "type":"objectgroup",
-         "visible":true,
-         "width":0,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "compression":"zlib",
-         "data":"eJztwTEBAAAAwqD1T20ND6AAAAAA4NcAEsAAAQ==",
-         "encoding":"base64",
-         "height":12,
-         "name":"background",
+         "height":10,
+         "name":"Tile Layer 1",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
@@ -59,7 +14,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":2,
+ "nextobjectid":1,
  "orientation":"orthogonal",
  "properties":
     {
