@@ -5,6 +5,10 @@
          "height":10,
          "name":"background",
          "opacity":1,
+         "properties":
+            {
+             "collision":"true"
+            },
          "type":"tilelayer",
          "visible":true,
          "width":100,

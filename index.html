@@ -21,19 +21,17 @@ function preload() {
     game.load.tilemap('knightfightmap', 'assets/knightfightmap.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('backgroundDirt', 'assets/backgroundDirt.png');
     game.load.spritesheet('knightwalkjump', 'assets/knightwalkjump.png', 10, 15, 12);
-
-
 }
 
 var map;
 var tileset;
 var layer;
-// var player;
-// var facing = 'left';
-// var jumpTimer = 0;
-// var cursors;
-// var jumpButton;
-// var bg;
+var player;
+var facing = 'left';
+var jumpTimer = 0;
+var cursors;
+var jumpButton;
+var bg;
 
 function create() {
 
@@ -41,34 +39,30 @@ function create() {
 
     game.stage.backgroundColor = '#787878';
 
-    // bg = game.add.tileSprite(0, 0, 800, 600, 'background');
-    // bg.fixedToCamera = true;
-
     map = game.add.tilemap('knightfightmap');
 
     map.addTilesetImage('backgroundDirt');
 
-    //map.setCollisionByExclusion([ 13, 14, 15, 16, 46, 47, 48, 49, 50, 51 ]);
+		map.setCollisionByExclusion([]);
 
     layer = map.createLayer('background');
-		layer.scale.x = 5;
-		layer.scale.y = 5;
-    //  Un-comment this on to see the collision tiles
-    // layer.debug = true;
+
+		// layer.scale.x = 5;
+		// layer.scale.y = 5;
 
     layer.resizeWorld();
 
-    game.physics.arcade.gravity.y = 250;
+		game.physics.arcade.gravity.y = 250;
 
-    player = game.add.sprite(15, 10, 'knightwalkjump');
-		player.scale.x = 5;
-		player.scale.y = 5;
+    player = game.add.sprite(0, 0, 'knightwalkjump');
     game.physics.enable(player, Phaser.Physics.ARCADE);
+
+		// player.scale.x = 5;
+		// player.scale.y = 5;
 
     player.body.bounce.y = 0.2;
     player.body.collideWorldBounds = true;
 
-    player.body.setSize(10, 15, 1, 1);
 
     player.animations.add('right', [1, 2, 3], 10, true);
     player.animations.add('left', [10, 9, 8], 10, true);
@@ -85,7 +79,7 @@ function update() {
     game.physics.arcade.collide(player, layer);
 
     player.body.velocity.x = 0;
-		var facing = '';
+
     if (cursors.left.isDown)
     {
         player.body.velocity.x = -150;
