@@ -21,7 +21,7 @@ function preload() {
     game.load.tilemap('knightfightmap', 'assets/knightfightmap.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('backgroundDirt', 'assets/backgroundDirt.png');
     game.load.spritesheet('knightwalkjump', 'assets/knightwalkjumpattack.png', 75, 70, 14, 0, 5);
-		game.load.spritesheet('blackbat', 'assets/blackbat.png', 50, 45);
+		// game.load.spritesheet('blackbat', 'assets/blackbat.png', 50, 45);
 }
 
 var map;
@@ -69,8 +69,8 @@ function create() {
 		player.animations.add('fightright', [6, 5, 4], true);
 		player.animations.add('fightleft', [7, 8, 9], true);
 
-		blackBat = game.add.sprite(0, 0, 'blackbat');
-		blackBat.animations.add('batfly', [0, 1, 2, 3], 10, true);
+		// blackBat = game.add.sprite(300, 0, 'blackbat');
+		// blackBat.animations.add('batfly', [0, 1, 2, 3], 1, true);
 
     game.camera.follow(player);
 
