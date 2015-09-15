@@ -1,7 +1,7 @@
-# knightfight
-Knight Fight Game
+# Knight Fight
+## A simple platformer Knight Fighting Game
 
-# TO DO:
+### TO DO:
 * Add enemies.
 * Redo map.
 * Title/load screen
