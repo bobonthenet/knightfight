@@ -29,6 +29,7 @@ function preload() {
     game.load.image('backgroundDirt', 'assets/backgroundDirt.png');
     game.load.spritesheet('knightwalkjump', 'assets/knightwalkjumpattack.png', 75, 70, 14, 0, 5);
 		game.load.spritesheet('blackbat', 'assets/blackbat.png', 50, 45, 4, 0, 1);
+		game.load.spritesheet('redbat', 'assets/redbat.png', 50, 45, 4, 0, 1);
 }
 
 var map;
@@ -110,6 +111,8 @@ function create() {
 		player.animations.add('fightleft', [7, 8, 9], true);
 
 		blackBat = new Bat('black', 4, 500, 50);
+		redBat = new Bat('red', 4, 800, 0);
+		blackBat2 = new Bat('black', 4, 700, 50);
 
 		// blackBat = game.add.sprite(600, 50, 'blackbat');
 		// blackBat.animations.add('batfly', [0, 1, 2, 3], 10, true);
@@ -194,6 +197,8 @@ function update() {
 			player.animations.play('fightright');
 		}
 	blackBat.batActions();
+	redBat.batActions();
+	blackBat2.batActions();
 }
 
 function render () {
