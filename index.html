@@ -21,7 +21,7 @@ function preload() {
     game.load.tilemap('knightfightmap', 'assets/knightfightmap.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('backgroundDirt', 'assets/backgroundDirt.png');
     game.load.spritesheet('knightwalkjump', 'assets/knightwalkjumpattack.png', 75, 70, 14, 0, 5);
-		// game.load.spritesheet('blackbat', 'assets/blackbat.png', 50, 45);
+		game.load.spritesheet('blackbat', 'assets/blackbat.png', 50, 45, 4, 0, 1);
 }
 
 var map;
@@ -33,7 +33,40 @@ var jumpTimer = 0;
 var cursors;
 var jumpButton;
 var bg;
-// var blackBat;
+var blackBat;
+
+function Bat (color, health, xpos, ypos) {
+	this.color = color;
+	this.health = health;
+	this.xpos = xpos;
+	this.ypos = ypos;
+  this.sprite = game.add.sprite(xpos, ypos, this.color + 'bat');
+	this.sprite.animations.add('batfly', [0, 1, 2, 3], 10, true);
+	this.sprite.animations.play('batfly');
+	this.batActions = batActions;
+	this.actionCounter = 0
+	this.moveDir = 'left';
+}
+
+function batActions(){
+	if(this.moveDir == 'left'){
+		this.sprite.x -= 4
+	} else {
+		this.sprite.x += 4
+	}
+	this.actionCounter ++;
+
+	if (this.actionCounter > 100 && this.moveDir == 'left')
+	{
+		this.moveDir = 'right';
+		this.actionCounter = 0;
+	} else if (this.actionCounter > 100 && this.moveDir == 'right'){
+		this.moveDir = 'left';
+		this.actionCounter = 0;
+	}
+
+
+}
 
 function create() {
 
@@ -69,8 +102,10 @@ function create() {
 		player.animations.add('fightright', [6, 5, 4], true);
 		player.animations.add('fightleft', [7, 8, 9], true);
 
-		// blackBat = game.add.sprite(300, 0, 'blackbat');
-		// blackBat.animations.add('batfly', [0, 1, 2, 3], 1, true);
+		blackBat = new Bat('black', 4, 500, 50);
+
+		// blackBat = game.add.sprite(600, 50, 'blackbat');
+		// blackBat.animations.add('batfly', [0, 1, 2, 3], 10, true);
 
     game.camera.follow(player);
 
@@ -151,7 +186,7 @@ function update() {
 		{
 			player.animations.play('fightright');
 		}
-	// blackBat.animations.play('batfly');
+	blackBat.batActions();
 }
 
 function render () {
@@ -159,6 +194,7 @@ function render () {
     // game.debug.text(game.time.physicsElapsed, 32, 32);
     // game.debug.body(player);
     // game.debug.bodyInfo(player, 16, 24);
+		// game.debug.body(blackBat);
 
 }
 </script>
