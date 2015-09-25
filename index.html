@@ -52,28 +52,34 @@ function Bat (color, health, xpos, ypos) {
 	this.sprite.animations.add('batfly', [0, 1, 2, 3], 10, true);
 	this.sprite.animations.play('batfly');
 	this.batActions = batActions;
-	this.actionCounter = 0
+	this.actionCounter = 0;
 	this.moveDir = 'left';
+	game.physics.enable(this.sprite, Phaser.Physics.ARCADE);
+  this.sprite.body.allowGravity = false;
 }
 
-function batActions(){
-	if(this.moveDir == 'left'){
-		this.sprite.x -= 4
+function batActions() {
+	if (game.physics.arcade.distanceBetween(this.sprite, player) > 200) {
+
+		if(this.moveDir == 'left'){
+			this.sprite.x -= 4
+		} else {
+			this.sprite.x += 4
+		}
+		this.actionCounter ++;
+
+		if (this.actionCounter > 100 && this.moveDir == 'left')
+		{
+			this.moveDir = 'right';
+			this.actionCounter = 0;
+		} else if (this.actionCounter > 100 && this.moveDir == 'right'){
+			this.moveDir = 'left';
+			this.actionCounter = 0;
+		}
+
 	} else {
-		this.sprite.x += 4
+		game.physics.arcade.moveToObject(this.sprite, player, 200);
 	}
-	this.actionCounter ++;
-
-	if (this.actionCounter > 100 && this.moveDir == 'left')
-	{
-		this.moveDir = 'right';
-		this.actionCounter = 0;
-	} else if (this.actionCounter > 100 && this.moveDir == 'right'){
-		this.moveDir = 'left';
-		this.actionCounter = 0;
-	}
-
-
 }
 
 function create() {
