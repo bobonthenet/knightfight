@@ -42,6 +42,7 @@ var cursors;
 var jumpButton;
 var bg;
 var blackBat;
+var sword;
 
 function Bat (color, health, xpos, ypos) {
 	this.color = color;
@@ -59,7 +60,7 @@ function Bat (color, health, xpos, ypos) {
 }
 
 function batActions() {
-	if (game.physics.arcade.distanceBetween(this.sprite, player) > 200) {
+	if (game.physics.arcade.distanceBetween(this.sprite, player) > 100) {
 
 		if(this.moveDir == 'left'){
 			this.sprite.x -= 4
@@ -79,6 +80,15 @@ function batActions() {
 
 	} else {
 		game.physics.arcade.moveToObject(this.sprite, player, 200);
+	}
+	if (sword.alive == true) {
+		game.physics.arcade.collide(this.sprite, sword, attacking, null, this, true);
+	}
+}
+
+function attacking() {
+	if (sword.alive == true) {
+		this.sprite.kill();
 	}
 }
 
@@ -110,11 +120,23 @@ function create() {
     player.body.bounce.y = 0.2;
     player.body.collideWorldBounds = true;
 
-
     player.animations.add('right', [0, 1, 2], 10, true);
     player.animations.add('left', [13, 12, 11], 10, true);
 		player.animations.add('fightright', [6, 5, 4], true);
 		player.animations.add('fightleft', [7, 8, 9], true);
+
+		hitboxes = game.add.group();
+		hitboxes.enableBody = true;
+		player.addChild(hitboxes);
+
+		sword = hitboxes.create(0, 0, null);
+		sword.body.setSize(35, 10, player.width, player.height / 2);
+		sword.name = "sword";
+		sword.damage = 50;
+		sword.knockbackDirection = 0.5;
+		sword.knockbackAmt = 600;
+		sword.body.allowGravity = false;
+		sword.alive = false;
 
 		blackBat = new Bat('black', 4, 500, 50);
 		redBat = new Bat('red', 4, 800, 0);
@@ -129,6 +151,27 @@ function create() {
     jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 		zKey = game.input.keyboard.addKey(Phaser.Keyboard.Z);
 
+}
+
+function enableHitbox(hitboxName) {
+    for(var i = 0; i < hitboxes.children.length; i++){
+          if(hitboxes.children[i].name === hitboxName){
+						if(facing == 'right') {
+							hitboxes.children[i].reset(player.x - 35, player.y);
+						} else {
+							hitboxes.children[i].reset(player.x - 75, player.y);
+						}
+						hitboxes.children[i].alive = true;
+						game.time.events.add(Phaser.Timer.SECOND * .25, disableAllHitboxes, this);
+          }
+  	}
+
+}
+
+function disableAllHitboxes() {
+     hitboxes.forEachExists(function(hitbox) {
+          hitbox.kill();
+     });
 }
 
 function update() {
@@ -197,10 +240,12 @@ function update() {
 		if (zKey.isDown && facing == 'left')
 		{
 			player.animations.play('fightleft');
+			enableHitbox('sword');
 		}
 		if (zKey.isDown && facing == 'right')
 		{
 			player.animations.play('fightright');
+			enableHitbox('sword');
 		}
 	blackBat.batActions();
 	redBat.batActions();
@@ -211,6 +256,8 @@ function render () {
 
     // game.debug.text(game.time.physicsElapsed, 32, 32);
     // game.debug.body(player);
+		// game.debug.body(sword);
+		// game.debug.text(sword.alive, 16, 24);
     // game.debug.bodyInfo(player, 16, 24);
 		// game.debug.body(blackBat);
 		// game.debug.text(game.physics.arcade.distanceBetween(blackBat.sprite, player), 32, 32)
