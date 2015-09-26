@@ -79,7 +79,7 @@ function batActions() {
 		}
 
 	} else {
-		game.physics.arcade.moveToObject(this.sprite, player, 200);
+		game.physics.arcade.moveToObject(this.sprite, player, 100);
 	}
 	if (sword.alive == true) {
 		game.physics.arcade.collide(this.sprite, sword, attacking, null, this, true);
@@ -87,8 +87,14 @@ function batActions() {
 }
 
 function attacking() {
-	if (sword.alive == true) {
-		this.sprite.kill();
+	if (sword.alive == true && sword.hitThisRound == false) {
+		if (this.health > 0) {
+			this.health -= sword.damage;
+			sword.alive = false;
+			sword.hitThisRound = true;
+		} else {
+			this.sprite.kill();
+		}
 	}
 }
 
@@ -132,11 +138,12 @@ function create() {
 		sword = hitboxes.create(0, 0, null);
 		sword.body.setSize(35, 10, player.width, player.height / 2);
 		sword.name = "sword";
-		sword.damage = 50;
+		sword.damage = 1;
 		sword.knockbackDirection = 0.5;
 		sword.knockbackAmt = 600;
 		sword.body.allowGravity = false;
 		sword.alive = false;
+		sword.hitThisRound = false;
 
 		blackBat = new Bat('black', 4, 500, 50);
 		redBat = new Bat('red', 4, 800, 0);
@@ -161,8 +168,14 @@ function enableHitbox(hitboxName) {
 						} else {
 							hitboxes.children[i].reset(player.x - 75, player.y);
 						}
-						hitboxes.children[i].alive = true;
-						game.time.events.add(Phaser.Timer.SECOND * .25, disableAllHitboxes, this);
+
+						if (hitboxes.children[i].hitThisRound == false) {
+							// hitboxes.children[i].hitThisRound = true;
+							hitboxes.children[i].alive = true;
+							game.time.events.add(Phaser.Timer.SECOND * .25, disableAllHitboxes, this);
+						}
+
+
           }
   	}
 
@@ -171,6 +184,7 @@ function enableHitbox(hitboxName) {
 function disableAllHitboxes() {
      hitboxes.forEachExists(function(hitbox) {
           hitbox.kill();
+					hitbox.hitThisRound = false;
      });
 }
 
@@ -259,7 +273,7 @@ function render () {
 		// game.debug.body(sword);
 		// game.debug.text(sword.alive, 16, 24);
     // game.debug.bodyInfo(player, 16, 24);
-		// game.debug.body(blackBat);
+		// game.debug.text(blackBat.health, 16, 24);
 		// game.debug.text(game.physics.arcade.distanceBetween(blackBat.sprite, player), 32, 32)
 
 }
