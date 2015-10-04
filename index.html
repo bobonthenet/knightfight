@@ -16,12 +16,21 @@
             margin: 0;
         }
     </style>
+		<link href='https://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>
 </head>
 <body>
 
 <script type="text/javascript">
 
 var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
+
+WebFontConfig = {
+    active: function() { game.time.events.add(Phaser.Timer.SECOND, createText, this); },
+    google: {
+      families: ['Press+Start+2P::latin']
+    }
+
+};
 
 function preload() {
 
@@ -30,6 +39,7 @@ function preload() {
     game.load.spritesheet('knightwalkjump', 'assets/knightwalkjumpattack.png', 75, 70, 14, 0, 5);
 		game.load.spritesheet('blackbat', 'assets/blackbat.png', 50, 45, 4, 0, 1);
 		game.load.spritesheet('redbat', 'assets/redbat.png', 50, 45, 4, 0, 1);
+		game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1/webfont.js');
 }
 
 var map;
@@ -61,11 +71,9 @@ function Bat (color, health, xpos, ypos) {
 	this.dmgTextPool = game.add.group();
 	var dmgText;
 	for (var d=0; d<50; d++) {
-			dmgText = game.add.text(0, 0, '1', {
-					font: '64px Arial Black',
-					fill: '#fff',
-					strokeThickness: 4
-			});
+			dmgText = game.add.text(0, 0, '1');
+			dmgText.font = 'Press+Start+2P::latin';
+			dmgText.fontSize = 64;
 			// start out not existing, so we don't draw it yet
 			dmgText.exists = false;
 			dmgText.tween = game.add.tween(dmgText)
@@ -135,7 +143,7 @@ function attacking() {
 function create() {
 
 	var text = "Use right and left keys to move.\n space to jump \n and z to attack.";
-	var style = { font: "15px Arial", fill: "#000000", align: "left" };
+	var style = { font: "15px Press+Start+2P", fill: "#000000", align: "left" };
 	var t = game.add.text(game.world.centerX-350, 0, text, style);
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
