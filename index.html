@@ -57,6 +57,29 @@ function Bat (color, health, xpos, ypos) {
 	this.moveDir = 'left';
 	game.physics.enable(this.sprite, Phaser.Physics.ARCADE);
   this.sprite.body.allowGravity = false;
+
+	this.dmgTextPool = game.add.group();
+	var dmgText;
+	for (var d=0; d<50; d++) {
+			dmgText = game.add.text(0, 0, '1', {
+					font: '64px Arial Black',
+					fill: '#fff',
+					strokeThickness: 4
+			});
+			// start out not existing, so we don't draw it yet
+			dmgText.exists = false;
+			dmgText.tween = game.add.tween(dmgText)
+					.to({
+							alpha: 0,
+							y: 100,
+							x: game.rnd.integerInRange(100, 700)
+					}, 1000, Phaser.Easing.Cubic.Out);
+
+			dmgText.tween.onComplete.add(function(text, tween) {
+					text.kill();
+			});
+			this.dmgTextPool.add(dmgText);
+	}
 }
 
 function batActions() {
@@ -92,6 +115,17 @@ function attacking() {
 			this.health -= sword.damage;
 			sword.alive = false;
 			sword.hitThisRound = true;
+
+		// grab a damage text from the pool to display what happened
+		var dmgText = this.dmgTextPool.getFirstExists(false);
+		if (dmgText) {
+		  dmgText.text = sword.damage;
+		  dmgText.reset(this.sprite.x, this.sprite.y);
+		  dmgText.alpha = 1;
+		  dmgText.tween.start();
+		}
+
+
 		} else {
 			this.sprite.kill();
 		}
@@ -157,7 +191,6 @@ function create() {
     cursors = game.input.keyboard.createCursorKeys();
     jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 		zKey = game.input.keyboard.addKey(Phaser.Keyboard.Z);
-
 }
 
 function enableHitbox(hitboxName) {
