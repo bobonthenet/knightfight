@@ -16,6 +16,7 @@
             margin: 0;
         }
     </style>
+		<link href='https://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>
 </head>
 <body>
 
@@ -30,6 +31,7 @@ function preload() {
     game.load.spritesheet('knightwalkjump', 'assets/knightwalkjumpattack.png', 75, 70, 14, 0, 5);
 		game.load.spritesheet('blackbat', 'assets/blackbat.png', 50, 45, 4, 0, 1);
 		game.load.spritesheet('redbat', 'assets/redbat.png', 50, 45, 4, 0, 1);
+		game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1/webfont.js');
 }
 
 var map;
@@ -57,6 +59,27 @@ function Bat (color, health, xpos, ypos) {
 	this.moveDir = 'left';
 	game.physics.enable(this.sprite, Phaser.Physics.ARCADE);
   this.sprite.body.allowGravity = false;
+
+	this.dmgTextPool = game.add.group();
+	var dmgText;
+	for (var d=0; d<50; d++) {
+			dmgText = game.add.text(0, 0, '1');
+			dmgText.font = 'Press Start 2P';
+			dmgText.fontSize = 16;
+			// start out not existing, so we don't draw it yet
+			dmgText.exists = false;
+			dmgText.tween = game.add.tween(dmgText)
+					.to({
+							alpha: 0,
+							y: 100,
+							x: game.rnd.integerInRange(100, 700)
+					}, 1000, Phaser.Easing.Cubic.Out);
+
+			dmgText.tween.onComplete.add(function(text, tween) {
+					text.kill();
+			});
+			this.dmgTextPool.add(dmgText);
+	}
 }
 
 function batActions() {
@@ -92,6 +115,17 @@ function attacking() {
 			this.health -= sword.damage;
 			sword.alive = false;
 			sword.hitThisRound = true;
+
+		// grab a damage text from the pool to display what happened
+		var dmgText = this.dmgTextPool.getFirstExists(false);
+		if (dmgText) {
+		  dmgText.text = sword.damage;
+		  dmgText.reset(this.sprite.x, this.sprite.y);
+		  dmgText.alpha = 1;
+		  dmgText.tween.start();
+		}
+
+
 		} else {
 			this.sprite.kill();
 		}
@@ -101,7 +135,7 @@ function attacking() {
 function create() {
 
 	var text = "Use right and left keys to move.\n space to jump \n and z to attack.";
-	var style = { font: "15px Arial", fill: "#000000", align: "left" };
+	var style = { font: "15px Press+Start+2P", fill: "#000000", align: "left" };
 	var t = game.add.text(game.world.centerX-350, 0, text, style);
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -157,7 +191,6 @@ function create() {
     cursors = game.input.keyboard.createCursorKeys();
     jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 		zKey = game.input.keyboard.addKey(Phaser.Keyboard.Z);
-
 }
 
 function enableHitbox(hitboxName) {
