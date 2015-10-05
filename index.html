@@ -24,14 +24,6 @@
 
 var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
-WebFontConfig = {
-    active: function() { game.time.events.add(Phaser.Timer.SECOND, createText, this); },
-    google: {
-      families: ['Press+Start+2P::latin']
-    }
-
-};
-
 function preload() {
 
     game.load.tilemap('knightfightmap', 'assets/knightfightmap.json', null, Phaser.Tilemap.TILED_JSON);
@@ -72,8 +64,8 @@ function Bat (color, health, xpos, ypos) {
 	var dmgText;
 	for (var d=0; d<50; d++) {
 			dmgText = game.add.text(0, 0, '1');
-			dmgText.font = 'Press+Start+2P::latin';
-			dmgText.fontSize = 32;
+			dmgText.font = 'Press Start 2P';
+			dmgText.fontSize = 16;
 			// start out not existing, so we don't draw it yet
 			dmgText.exists = false;
 			dmgText.tween = game.add.tween(dmgText)
