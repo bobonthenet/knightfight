@@ -107,6 +107,8 @@ function batActions() {
 	if (sword.alive == true) {
 		game.physics.arcade.collide(this.sprite, sword, attacking, null, this, true);
 	}
+
+	game.physics.arcade.collide(this.sprite, player, damagePlayer, null, this, true);
 }
 
 function attacking() {
@@ -132,11 +134,17 @@ function attacking() {
 	}
 }
 
-function create() {
+function damagePlayer() {
+	// TODO: Make a player damage function.
+	// too tired to code right now.
+}
 
-	var text = "Use right and left keys to move.\n space to jump \n and z to attack.";
-	var style = { font: "15px Press+Start+2P", fill: "#000000", align: "left" };
-	var t = game.add.text(game.world.centerX-350, 0, text, style);
+function create() {
+	//
+	// var text = "Use right and left keys to move.\n space to jump \n and z to attack.";
+	// var style = { font: "15px Press Start 2P", fill: "#000000", align: "left" };
+	// var t = game.add.text(game.world.centerX-350, 0, text, style);
+	// t.font = 'Press Start P2'
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
