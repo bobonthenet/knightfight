@@ -133,4 +133,5 @@ function disableAllHitboxes() {
 function damagePlayer() {
 	player.status = 'knockedBack'
 	player.whoHitMe = this;
+	player.health -= 1;
 }

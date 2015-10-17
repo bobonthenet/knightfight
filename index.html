@@ -84,6 +84,7 @@ function create() {
 		player.moveDir = 'right';
 		player.status = 'attacking';
 		player.whoHitMe = '';
+		player.health = 5;
 		hitboxes = game.add.group();
 		hitboxes.enableBody = true;
 		player.addChild(hitboxes);
@@ -119,6 +120,7 @@ function update() {
 
 		switch(player.status) {
 			case 'attacking':
+				// TODO: This logic is repeated a lot.  Use a function.
 		    if (cursors.left.isDown)
 		    {
 					player.body.setSize(50, 55, 25, 15);
