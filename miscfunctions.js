@@ -4,7 +4,7 @@ function attacking() {
 			this.health -= sword.damage;
 			sword.alive = false;
 			sword.hitThisRound = true;
-			this.batStatus = 'knockBack';
+			this.sprite.batStatus = 'knockBack';
 		// grab a damage text from the pool to display what happened
 		var dmgText = this.dmgTextPool.getFirstExists(false);
 		if (dmgText) {
@@ -24,10 +24,11 @@ function attacking() {
 // Shows the player sprite being knocked away from the enemy after taking a hit (being touched)
 function knockedBackAnimation(attacker, attacked) {
 	// attacked.sprite.animations.stop();
-
+	attacker = attacker.sprite != undefined ? attacker.sprite : attacker;
+	attacked = attacked.sprite != undefined ? attacked.sprite : attacked;
 	// Initialize knock back
 	var distance = 75;
-	var knockedDirection = facing; // I don't really like how this is used.  I can probably get rid of it.
+	var knockedDirection = attacker.moveDir; // I don't really like how this is used.  I can probably get rid of it.
 
 	if(attacked.knockedTo == 0)
 	{
@@ -37,10 +38,10 @@ function knockedBackAnimation(attacker, attacked) {
 		switch(knockedDirection)
 		{
 			case 'left':
-				attacked.knockedTo		= (attacked.sprite.body.x - distance);
+				attacked.knockedTo		= (attacked.body.x - distance);
 			break;
 			case 'right':
-				attacked.knockedTo		= (attacked.sprite.body.x + distance);
+				attacked.knockedTo		= (attacked.body.x + distance);
 			break;
 		}
 
@@ -52,19 +53,19 @@ function knockedBackAnimation(attacker, attacked) {
 			knockedVelocityX= -500;
 
 			// Parabolic knock back arc
-			attacked.sprite.body.velocity.x = knockedVelocityX;
+			attacked.body.velocity.x = knockedVelocityX;
 
-			if(attacked.sprite.body.x <= (attacked.knockedTo + distance/2))
+			if(attacked.body.x <= (attacked.knockedTo + distance/2))
 			{
-				attacked.sprite.body.velocity.y = 100;
+				attacked.body.velocity.y = 100;
 			}
 			else
 			{
-				attacked.sprite.body.velocity.y = -100;
+				attacked.body.velocity.y = -100;
 			}
 
 			// Player has been knocked back as far as he needs to, reset
-			if(attacked.sprite.body.x <= attacked.knockedTo || attacked.sprite.body.x <= 0)
+			if(attacked.body.x <= attacked.knockedTo || attacked.body.x <= 0)
 			{
 				attacked.knockedTo 		= 0;
 				knockback 		= false;
@@ -77,19 +78,19 @@ function knockedBackAnimation(attacker, attacked) {
 			knockedVelocityX= 500;
 
 			// Parabolic knock back arc - A major pain in my ass
-			attacked.sprite.body.velocity.x = knockedVelocityX;
+			attacked.body.velocity.x = knockedVelocityX;
 
-			if(attacked.sprite.body.x >= (attacked.knockedTo + distance/2))
+			if(attacked.body.x >= (attacked.knockedTo + distance/2))
 			{
-				attacked.sprite.body.velocity.y = 100;
+				attacked.body.velocity.y = 100;
 			}
 			else
 			{
-				attacked.sprite.body.velocity.y = -100;
+				attacked.body.velocity.y = -100;
 			}
 
 			// Player has been knocked back as far as he needs to, reset
-			if(attacked.sprite.body.x >= attacked.knockedTo || attacked.sprite.body.x >= game.canvas.width + 30)
+			if(attacked.body.x >= attacked.knockedTo || attacked.body.x >= game.canvas.width + 30)
 			{
 				attacked.knockedTo 		= 0;
 				knockback 		= false;
@@ -100,14 +101,14 @@ function knockedBackAnimation(attacker, attacked) {
 	}
 
 	// A ghostly visage for a short stint of immortality
-	// attacked.sprite.body.sprite.alpha = 0.5;
+	// attacked.body.sprite.alpha = 0.5;
 
 }
 
 function enableHitbox(hitboxName) {
     for(var i = 0; i < hitboxes.children.length; i++){
           if(hitboxes.children[i].name === hitboxName){
-						if(facing == 'right') {
+						if(player.moveDir == 'right') {
 							hitboxes.children[i].reset(player.x - 35, player.y);
 						} else {
 							hitboxes.children[i].reset(player.x - 75, player.y);
@@ -130,6 +131,5 @@ function disableAllHitboxes() {
 }
 
 function damagePlayer() {
-	// TODO: Make a player damage function.
-	// too tired to code right now.
+	knockedBackAnimation(this, player);
 }

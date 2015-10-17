@@ -41,7 +41,6 @@ var map;
 var tileset;
 var layer;
 var player;
-var facing = 'right';
 var jumpTimer = 0;
 var cursors;
 var jumpButton;
@@ -82,7 +81,7 @@ function create() {
     player.animations.add('left', [13, 12, 11], 10, true);
 		player.animations.add('fightright', [6, 5, 4], true);
 		player.animations.add('fightleft', [7, 8, 9], true);
-
+		player.moveDir = 'right';
 		hitboxes = game.add.group();
 		hitboxes.enableBody = true;
 		player.addChild(hitboxes);
@@ -122,9 +121,9 @@ function update() {
 			player.body.setSize(50, 70, 25, 0);
         player.body.velocity.x = -150;
 
-        if (facing != 'left')
+        if (player.moveDir != 'left')
         {
-          facing = 'left';
+          player.moveDir = 'left';
         }
 				if(player.body.onFloor())
 				{
@@ -138,9 +137,9 @@ function update() {
 			player.body.setSize(50, 70, 0, 0);
         player.body.velocity.x = 150;
 
-        if (facing != 'right')
+        if (player.moveDir != 'right')
         {
-          facing = 'right';
+          player.moveDir = 'right';
         }
 				if (player.body.onFloor())
 				{
@@ -151,11 +150,11 @@ function update() {
     }
     else
     {
-        if (facing != 'idle')
+        if (player.moveDir != 'idle')
         {
             player.animations.stop();
 
-            if (facing == 'left')
+            if (player.moveDir == 'left')
             {
                 player.frame = 13;
             }
@@ -164,7 +163,7 @@ function update() {
                 player.frame = 0;
             }
 
-            //facing = 'idle';
+            //player.moveDir = 'idle';
         }
     }
 
@@ -174,12 +173,12 @@ function update() {
         jumpTimer = game.time.now + 750;
     }
 
-		if (zKey.isDown && facing == 'left')
+		if (zKey.isDown && player.moveDir == 'left')
 		{
 			player.animations.play('fightleft');
 			enableHitbox('sword');
 		}
-		if (zKey.isDown && facing == 'right')
+		if (zKey.isDown && player.moveDir == 'right')
 		{
 			player.animations.play('fightright');
 			enableHitbox('sword');
@@ -196,7 +195,7 @@ function render () {
 		// game.debug.body(sword);
 		// game.debug.text(sword.alive, 16, 24);
     // game.debug.bodyInfo(player, 16, 24);
-		//  game.debug.text(blackBat.batStatus, 16, 24);
+		//  game.debug.text(blackBat.sprite.batStatus, 16, 24);
 		// game.debug.text(game.physics.arcade.distanceBetween(blackBat.sprite, player), 32, 32)
 
 }
