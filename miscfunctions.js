@@ -4,7 +4,7 @@ function attacking() {
 			this.health -= sword.damage;
 			sword.alive = false;
 			sword.hitThisRound = true;
-			this.sprite.batStatus = 'knockBack';
+			this.sprite.status = 'knockBack';
 		// grab a damage text from the pool to display what happened
 		var dmgText = this.dmgTextPool.getFirstExists(false);
 		if (dmgText) {
@@ -69,7 +69,7 @@ function knockedBackAnimation(attacker, attacked) {
 			{
 				attacked.knockedTo 		= 0;
 				knockback 		= false;
-				attacked.batStatus = 'attacking';
+				attacked.status = 'attacking';
 			}
 
 		break;
@@ -94,7 +94,7 @@ function knockedBackAnimation(attacker, attacked) {
 			{
 				attacked.knockedTo 		= 0;
 				knockback 		= false;
-				attacked.batStatus = 'attacking';
+				attacked.status = 'attacking';
 			}
 
 		break;
@@ -131,5 +131,6 @@ function disableAllHitboxes() {
 }
 
 function damagePlayer() {
-	knockedBackAnimation(this, player);
+	player.status = 'knockedBack'
+	player.whoHitMe = this;
 }

@@ -6,7 +6,7 @@ function Bat (color, health, xpos, ypos) {
   this.sprite = game.add.sprite(xpos, ypos, this.color + 'bat');
 	this.sprite.animations.add('batfly', [0, 1, 2, 3], 10, true);
 	this.sprite.animations.play('batfly');
-	this.sprite.batStatus = 'new'; //This var name should be something more generic.
+	this.sprite.status = 'new'; //This var name should be something more generic.
 	this.batActions = batActions;
 	this.actionCounter = 0;
 	this.sprite.moveDir = 'left';
@@ -37,7 +37,7 @@ function Bat (color, health, xpos, ypos) {
 }
 
 function batActions() {
-	if (game.physics.arcade.distanceBetween(this.sprite, player) > 100 && this.sprite.batStatus == 'new') { //Make this into a switch statement.
+	if (game.physics.arcade.distanceBetween(this.sprite, player) > 100 && this.sprite.status == 'new') { //Make this into a switch statement.
 
 		if(this.sprite.moveDir == 'left'){
 			this.sprite.x -= 4
@@ -55,9 +55,9 @@ function batActions() {
 			this.actionCounter = 0;
 		}
 
-	} else if (this.sprite.batStatus == 'new' || this.sprite.batStatus == 'attacking') {
-		if (this.sprite.batStatus == 'new') {
-			this.sprite.batStatus = 'attacking'
+	} else if (this.sprite.status == 'new' || this.sprite.status == 'attacking') {
+		if (this.sprite.status == 'new') {
+			this.sprite.status = 'attacking'
 		}
 		game.physics.arcade.moveToObject(this.sprite, player, 100);
 		if (this.sprite.body.x > player.body.x) {
@@ -65,7 +65,7 @@ function batActions() {
 		} else {
 			this.sprite.moveDir = 'right';
 		}
-	} else if (this.sprite.batStatus == 'knockBack') {
+	} else if (this.sprite.status == 'knockBack') {
 		knockedBackAnimation(player, this)
 	}
 	if (sword.alive == true) {
