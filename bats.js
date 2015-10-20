@@ -69,8 +69,8 @@ function batActions() {
 		knockedBackAnimation(player, this)
 	}
 	if (sword.alive == true) {
-		game.physics.arcade.collide(this.sprite, sword, attacking, null, this, true);
+		game.physics.arcade.overlap(this.sprite, sword, attacking, null, this);
 	}
 
-	game.physics.arcade.collide(this.sprite, player, damagePlayer, null, this, true);
+	game.physics.arcade.overlap(this.sprite, player, damagePlayer, null, this);
 }
