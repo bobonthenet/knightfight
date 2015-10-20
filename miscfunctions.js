@@ -133,5 +133,9 @@ function disableAllHitboxes() {
 function damagePlayer() {
 	player.status = 'knockedBack'
 	player.whoHitMe = this;
-	player.health -= 1;
+	game.time.events.add(Phaser.Timer.SECOND * .25, function(){player.health -= 1}, this);
+	// This won't work the way you thought it would but your too tired to fix it.
+	// Take a look at what you did for the sword for something that will actually work.
+	// You've got this!
+
 }
