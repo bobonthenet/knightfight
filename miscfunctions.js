@@ -115,7 +115,6 @@ function enableHitbox(hitboxName) {
 						}
 
 						if (hitboxes.children[i].hitThisRound == false) {
-							// hitboxes.children[i].hitThisRound = true;
 							hitboxes.children[i].alive = true;
 							game.time.events.add(Phaser.Timer.SECOND * .25, disableAllHitboxes, this);
 						}
@@ -133,7 +132,15 @@ function disableAllHitboxes() {
 function damagePlayer() {
 	player.status = 'knockedBack'
 	player.whoHitMe = this;
-	game.time.events.add(Phaser.Timer.SECOND * .25, function(){player.health -= 1}, this);
+	if (this.hitThisRound == false) {
+		player.health -= 1;
+		this.hitThisRound = true;
+		game.time.events.add(Phaser.Timer.SECOND, function(){this.hitThisRound = false;}, this);
+	}; // not sure about this.  Maybe the timer should be on the player instead of the bat.
+		 // currently "this" bat can only hit the player once per second but all the bats have their
+		 // own timer.  So if the player gets swarmed, he is fucked.  Makes sense but might be too
+		 // hard.  I'll do a survey or something.
+
 	// This won't work the way you thought it would but your too tired to fix it.
 	// Take a look at what you did for the sword for something that will actually work.
 	// You've got this!

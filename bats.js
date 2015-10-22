@@ -13,6 +13,7 @@ function Bat (color, health, xpos, ypos) {
 	game.physics.enable(this.sprite, Phaser.Physics.ARCADE);
   this.sprite.body.allowGravity = false;
 	this.sprite.knockedTo = 0;
+	this.hitThisRound = false; // The bat should only be able to hit the player once per second.
 
 	this.dmgTextPool = game.add.group();
 	var dmgText;
