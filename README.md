@@ -9,9 +9,10 @@ The to do list below is an approximate roadmap for the development of Knight Fig
 
 ### TO DO:
 * ~~Attacking bats does damage but does not necessarily kill unless hitpoints drop to 0.~~
-* Bats do damagage to player.
+* ~~Bats do damagage to player.~~
 * ~~Knockback~~
 * ~~Show damage as floating numbers.~~
+* Player dies when health reaches 0.
 * Add more enemies.
 * Sound F/X
 * Music
