@@ -141,8 +141,15 @@ function damagePlayer() {
 		 // own timer.  So if the player gets swarmed, he is fucked.  Makes sense but might be too
 		 // hard.  I'll do a survey or something.
 
-	// This won't work the way you thought it would but your too tired to fix it.
-	// Take a look at what you did for the sword for something that will actually work.
-	// You've got this!
+	if (player.health <= 0) {
+		playerDeath();
+	}
+}
 
+function playerDeath() {
+	var gameOverText = game.add.text(game.camera.x + 100, game.camera.y + 150, 'You were defeated!');
+	gameOverText.font = 'Press Start 2P';
+	gameOverText.fontSize = 32;
+	player.kill();
+	game.time.events.add(Phaser.Timer.SECOND * 5, function(){location.reload()}, this);
 }
