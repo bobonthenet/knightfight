@@ -151,5 +151,5 @@ function playerDeath() {
 	gameOverText.font = 'Press Start 2P';
 	gameOverText.fontSize = 32;
 	player.kill();
-	game.time.events.add(Phaser.Timer.SECOND * 5, function(){location.reload()}, this);
+	game.time.events.add(Phaser.Timer.SECOND * 3, function(){location.reload()}, this);
 }
