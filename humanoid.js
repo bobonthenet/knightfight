@@ -40,17 +40,39 @@ function Humanoid (sprite, health, xpos, ypos) {
 function humanoidActions() {
   switch(this.sprite.status) {
     case 'new':
-      // TODO: Code for new status.
+      if(this.sprite.moveDir == 'left'){
+        this.sprite.x -= 4
+      } else {
+        this.sprite.x += 4
+      }
+      this.actionCounter ++;
+
+      if (this.actionCounter > 100 && this.sprite.moveDir == 'left')
+      {
+        this.sprite.moveDir = 'right';
+        this.actionCounter = 0;
+      } else if (this.actionCounter > 100 && this.sprite.moveDir == 'right'){
+        this.sprite.moveDir = 'left';
+        this.actionCounter = 0;
+      }
+      if (game.physics.arcade.distanceBetween(this.sprite, player) > 100) {
+        this.sprite.status = 'attacking';
+      }
       break;
     case 'attacking':
-      // TODO: Code for attacking status.
+    game.physics.arcade.moveToObject(this.sprite, player, 100);
+      if (this.sprite.body.x > player.body.x) {
+        this.sprite.moveDir = 'left';
+      } else {
+        this.sprite.moveDir = 'right';
+      }
       break;
     case 'knockBack':
-      // TODO: Code for when the humanoid is knocked back.
+      knockedBackAnimation(player, this);
       break;
-    default:
-      default // TODO: Code for default.
   }
-
+  if (sword.alive == true) {
+    game.physics.arcade.overlap(this.sprite, sword, attacking, null, this);
+  }
   game.physics.arcade.overlap(this.sprite, player, damagePlayer, null, this);
 }

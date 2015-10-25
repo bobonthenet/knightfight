@@ -12,6 +12,7 @@
     <title>Knight Fight!</title>
     <script src="phaser.js"></script>
 		<script src="bats.js"></script>
+		<script src="humanoid.js"></script>
 		<script src="player.js"></script>
 		<script src="miscfunctions.js"></script>
     <style type="text/css">
@@ -102,9 +103,7 @@ function create() {
 		blackBat = new Bat('black', 4, 500, 50);
 		redBat = new Bat('red', 4, 800, 0);
 		blackBat2 = new Bat('black', 4, 700, 50);
-
-		// blackBat = game.add.sprite(600, 50, 'blackbat');
-		// blackBat.animations.add('batfly', [0, 1, 2, 3], 10, true);
+		enemyKnight = new Humanoid('knightwalkjump', 5, 935, 265);
 
     game.camera.follow(player);
 
@@ -259,6 +258,8 @@ function render () {
     // game.debug.bodyInfo(player, 16, 24);
 		//  game.debug.text(blackBat.sprite.status, 16, 24);
 		// game.debug.text(game.physics.arcade.distanceBetween(blackBat.sprite, player), 32, 32)
+		game.debug.text("player x: " + player.body.x, 60, 40);
+		game.debug.text("player y: " + player.body.y, 60, 55);
 
 }
 </script>
