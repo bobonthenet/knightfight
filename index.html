@@ -86,6 +86,7 @@ function create() {
 		player.status = 'attacking';
 		player.whoHitMe = '';
 		player.health = 5;
+		player.knockedTo = 0;
 		hitboxes = game.add.group();
 		hitboxes.enableBody = true;
 		player.addChild(hitboxes);
@@ -100,10 +101,10 @@ function create() {
 		sword.alive = false;
 		sword.hitThisRound = false;
 
-		blackBat = new Bat('black', 4, 500, 50);
-		redBat = new Bat('red', 4, 800, 0);
-		blackBat2 = new Bat('black', 4, 700, 50);
-		enemyKnight = new Humanoid('knightwalkjump', 5, 935, 265);
+		// blackBat = new Bat('black', 4, 500, 50);
+		// redBat = new Bat('red', 4, 800, 0);
+		// blackBat2 = new Bat('black', 4, 700, 50);
+		enemyKnight = new Humanoid('knightwalkjump', 5, 945, 265);
 
     game.camera.follow(player);
 
@@ -244,9 +245,10 @@ function update() {
 			enableHitbox('sword');
 		}
 
-	blackBat.batActions();
-	redBat.batActions();
-	blackBat2.batActions();
+	// blackBat.batActions();
+	// redBat.batActions();
+	// blackBat2.batActions();
+	enemyKnight.humanoidActions();
 }
 
 function render () {
@@ -260,6 +262,7 @@ function render () {
 		// game.debug.text(game.physics.arcade.distanceBetween(blackBat.sprite, player), 32, 32)
 		game.debug.text("player x: " + player.body.x, 60, 40);
 		game.debug.text("player y: " + player.body.y, 60, 55);
+		// game.debug.body(enemyKnight.sprite);
 
 }
 </script>

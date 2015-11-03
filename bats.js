@@ -1,8 +1,8 @@
 function Bat (color, health, xpos, ypos) {
 	this.color = color;
 	this.health = health;
-	this.xpos = xpos;
-	this.ypos = ypos;
+	// this.xpos = xpos;
+	// this.ypos = ypos;
   this.sprite = game.add.sprite(xpos, ypos, this.color + 'bat');
 	this.sprite.animations.add('batfly', [0, 1, 2, 3], 10, true);
 	this.sprite.animations.play('batfly');
