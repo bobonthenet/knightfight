@@ -1,16 +1,11 @@
 function Humanoid (sprite, health, xpos, ypos) {
   this.health = health;
   this.sprite = game.add.sprite(xpos, ypos, sprite);
-  this.sprite.animations.add('batfly', [0, 1, 2, 3], 10, true);
-  this.sprite.animations.add('right', [0, 1, 2], 10, true);
-  this.sprite.animations.add('left', [13, 12, 11], 10, true);
-  this.sprite.animations.add('fightright', [6, 5, 4], true);
-  this.sprite.animations.add('fightleft', [7, 8, 9], true);
   this.sprite.status = 'new';
   this.sprite.animations.add('right', [0, 1, 2], 10, true);
   this.sprite.animations.add('left', [13, 12, 11], 10, true);
-  this.sprite.animations.add('fightright', [6, 5, 4], true);
-  this.sprite.animations.add('fightleft', [7, 8, 9], true);
+  this.sprite.animations.add('fightright', [6, 5, 4], 10, true);
+  this.sprite.animations.add('fightleft', [7, 8, 9], 10, true);
   this.humanoidActions = humanoidActions;
   this.actionCounter = 0;
   this.sprite.moveDir = 'left';
@@ -79,6 +74,11 @@ function humanoidActions() {
         } else {
           this.sprite.animations.play('left');
         }
+        if (this.sprite.body.blocked.left == true && this.sprite.body.onFloor() && game.time.now > jumpTimer)
+        {
+            this.sprite.body.velocity.y = -250;
+            jumpTimer = game.time.now + 750;
+        }
       } else {
         this.sprite.moveDir = 'right';
         this.sprite.body.velocity.x = 50;
@@ -87,6 +87,11 @@ function humanoidActions() {
           this.sprite.animations.play('fightright');
         } else {
           this.sprite.animations.play('right');
+        }
+        if (this.sprite.body.blocked.right == true && this.sprite.body.onFloor() && game.time.now > jumpTimer)
+        {
+            this.sprite.body.velocity.y = -250;
+            jumpTimer = game.time.now + 750;
         }
       }
       break;
