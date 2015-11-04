@@ -33,6 +33,7 @@ function preload() {
     game.load.tilemap('knightfightmap', 'assets/knightfightmap.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('backgroundDirt', 'assets/backgroundDirt.png');
     game.load.spritesheet('knightwalkjump', 'assets/knightwalkjumpattack.png', 75, 70, 14, 0, 5);
+		game.load.spritesheet('orcwalkjump', 'assets/orcwalkjumpattack.png', 75, 70, 14, 0, 5);
 		game.load.spritesheet('blackbat', 'assets/blackbat.png', 50, 45, 4, 0, 1);
 		game.load.spritesheet('redbat', 'assets/redbat.png', 50, 45, 4, 0, 1);
 		game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1/webfont.js');
@@ -104,7 +105,7 @@ function create() {
 		blackBat = new Bat('black', 2, 500, 50);
 		redBat = new Bat('red', 4, 800, 0);
 		blackBat2 = new Bat('black', 2, 700, 50);
-		enemyKnight = new Humanoid('knightwalkjump', 5, 945, 265);
+		enemyKnight = new Humanoid('orcwalkjump', 5, 945, 265);
 
     game.camera.follow(player);
 
