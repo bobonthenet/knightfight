@@ -32,6 +32,9 @@ function preload() {
 
     game.load.tilemap('knightfightmap', 'assets/knightfightmap.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('backgroundDirt', 'assets/backgroundDirt.png');
+		game.load.image('background', 'assets/background.png');
+		game.load.image('foreground', 'assets/foreground.png');
+		game.load.image('trees', 'assets/forrestBackground.png');
     game.load.spritesheet('knightwalkjump', 'assets/knightwalkjumpattack.png', 75, 70, 14, 0, 5);
 		game.load.spritesheet('orcwalkjump', 'assets/orcwalkjumpattack.png', 75, 70, 14, 0, 5);
 		game.load.spritesheet('blackbat', 'assets/blackbat.png', 50, 45, 4, 0, 1);
@@ -64,12 +67,19 @@ function create() {
     map = game.add.tilemap('knightfightmap');
 
     map.addTilesetImage('backgroundDirt');
+		map.addTilesetImage('background');
+		map.addTilesetImage('foreground');
+		map.addTilesetImage('trees');
 
-		map.setCollisionByExclusion([]);
 
-    layer = map.createLayer('background');
+    collisionLayer = map.createLayer('collisionLayer');
+		background = map.createLayer('background');
+		trees = map.createLayer('trees');
 
-    layer.resizeWorld();
+		map.setCollisionByExclusion([], true, collisionLayer);
+    collisionLayer.resizeWorld();
+		background.resizeWorld();
+		trees.resizeWorld();
 
 		game.physics.arcade.gravity.y = 250;
 
@@ -116,7 +126,7 @@ function create() {
 
 function update() {
 
-    game.physics.arcade.collide(player, layer);
+    game.physics.arcade.collide(player, collisionLayer);
     player.body.velocity.x = 0;
 
 		switch(player.status) {

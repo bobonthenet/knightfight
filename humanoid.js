@@ -39,7 +39,7 @@ function Humanoid (sprite, health, xpos, ypos) {
 }
 
 function humanoidActions() {
-  game.physics.arcade.collide(this.sprite, layer);
+  game.physics.arcade.collide(this.sprite, collisionLayer);
 
   switch(this.sprite.status) {
     case 'new': // TODO: Change this to use this.sprite.body.velocity.x
