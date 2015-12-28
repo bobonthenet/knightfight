@@ -37,9 +37,12 @@ function preload() {
 		game.load.image('trees', 'assets/forrestBackground.png');
     game.load.spritesheet('knightwalkjump', 'assets/knightwalkjumpattack.png', 75, 70, 14, 0, 5);
 		game.load.spritesheet('orcwalkjump', 'assets/orcwalkjumpattack.png', 75, 70, 14, 0, 5);
+		game.load.spritesheet('orchelm', 'assets/orchelm.png', 75, 70, 14, 0, 5);
+		// game.load.spritesheet('wizard', 'assets/wizard.png', 75, 70, 14, 0, 5);
 		game.load.spritesheet('blackbat', 'assets/blackbat.png', 50, 45, 4, 0, 1);
 		game.load.spritesheet('redbat', 'assets/redbat.png', 50, 45, 4, 0, 1);
 		game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1/webfont.js');
+		game.load.audio('durchriss', ['assets/Durchriss-Low.ogg', 'assets/Durchriss-Low.ogg']);
 }
 
 var map;
@@ -52,6 +55,7 @@ var jumpButton;
 var bg;
 var blackBat;
 var sword;
+var music;
 
 function create() {
 	//
@@ -59,6 +63,9 @@ function create() {
 	// var style = { font: "15px Press Start 2P", fill: "#000000", align: "left" };
 	// var t = game.add.text(game.world.centerX-350, 0, text, style);
 	// t.font = 'Press Start P2'
+
+		music = game.add.audio('durchriss');
+		music.play();
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -116,6 +123,10 @@ function create() {
 		redBat = new Bat('red', 4, 800, 0);
 		blackBat2 = new Bat('black', 2, 700, 50);
 		enemyKnight = new Humanoid('orcwalkjump', 5, 945, 265);
+		orchelm = new Humanoid('orchelm', 7, 1685, 265);
+		enemyKnight2 = new Humanoid('orcwalkjump', 5, 2435, 265);
+		orchelm2 = new Humanoid('orchelm', 7, 2597, 265);
+		// wizard = new Humanoid('wizard', 5, 3830, 185)
 
     game.camera.follow(player);
 
@@ -259,7 +270,11 @@ function update() {
 	blackBat.batActions();
 	redBat.batActions();
 	blackBat2.batActions();
-	enemyKnight.humanoidActions();
+	enemyKnight.humanoidActions('new');
+	orchelm.humanoidActions('attacking');
+	enemyKnight2.humanoidActions('new');
+	orchelm2.humanoidActions('new');
+	// wizard.humanoidActions('new');
 }
 
 function render () {
@@ -271,15 +286,16 @@ function render () {
     // game.debug.bodyInfo(player, 16, 24);
 		//  game.debug.text(blackBat.sprite.status, 16, 24);
 		// game.debug.text(game.physics.arcade.distanceBetween(blackBat.sprite, player), 32, 32)
-		// game.debug.text("player x: " + player.body.x, 60, 40);
-		// game.debug.text("player y: " + player.body.y, 60, 55);
+		game.debug.text("player x: " + player.body.x, 60, 40);
+		game.debug.text("player y: " + player.body.y, 60, 55);
 		// game.debug.body(enemyKnight.sprite);
 
 }
 </script>
 <p>All images created by Lucid Design <a href="http://luciddesign.tk/">http://luciddesign.tk/</a></br>
 Code by Bobby Bedard <a href="http://www.bobonthenet.com">www.bobonthenet.com</a></br>
-Made with Phaser <a href="http://www.phaser.io">phaser.io</a></p>
+Made with Phaser <a href="http://www.phaser.io">phaser.io</a></br>
+Music by Gundatsch - https://soundcloud.com/gundatsch</p>
 
 </body>
 </html>
