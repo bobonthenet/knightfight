@@ -39,7 +39,8 @@ function Humanoid (sprite, health, xpos, ypos) {
 }
 
 function humanoidActions(status) {
-  this.sprite.status = status
+
+  this.sprite.status = status != undefined ? status : this.sprite.status
   game.physics.arcade.collide(this.sprite, collisionLayer);
 
   switch(this.sprite.status) {

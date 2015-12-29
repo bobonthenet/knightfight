@@ -31,18 +31,18 @@ var game = new Phaser.Game(800, 400, Phaser.CANVAS, 'phaser-example', { preload:
 function preload() {
 
     game.load.tilemap('knightfightmap', 'assets/knightfightmap.json', null, Phaser.Tilemap.TILED_JSON);
-    game.load.image('backgroundDirt', 'assets/backgroundDirt.png');
 		game.load.image('background', 'assets/background.png');
 		game.load.image('foreground', 'assets/foreground.png');
 		game.load.image('trees', 'assets/forrestBackground.png');
     game.load.spritesheet('knightwalkjump', 'assets/knightwalkjumpattack.png', 75, 70, 14, 0, 5);
 		game.load.spritesheet('orcwalkjump', 'assets/orcwalkjumpattack.png', 75, 70, 14, 0, 5);
 		game.load.spritesheet('orchelm', 'assets/orchelm.png', 75, 70, 14, 0, 5);
-		// game.load.spritesheet('wizard', 'assets/wizard.png', 75, 70, 14, 0, 5);
+		game.load.spritesheet('wizard', 'assets/wizard.png', 75, 70, 14, 0, 5);
 		game.load.spritesheet('blackbat', 'assets/blackbat.png', 50, 45, 4, 0, 1);
 		game.load.spritesheet('redbat', 'assets/redbat.png', 50, 45, 4, 0, 1);
 		game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1/webfont.js');
 		game.load.audio('durchriss', ['assets/Durchriss-Low.ogg', 'assets/Durchriss-Low.ogg']);
+		game.load.spritesheet('fireball', 'assets/fireball.png', 30, 15, 3, 0, 5)
 }
 
 var map;
@@ -73,7 +73,6 @@ function create() {
 
     map = game.add.tilemap('knightfightmap');
 
-    map.addTilesetImage('backgroundDirt');
 		map.addTilesetImage('background');
 		map.addTilesetImage('foreground');
 		map.addTilesetImage('trees');
@@ -126,7 +125,7 @@ function create() {
 		orchelm = new Humanoid('orchelm', 7, 1685, 265);
 		enemyKnight2 = new Humanoid('orcwalkjump', 5, 2435, 265);
 		orchelm2 = new Humanoid('orchelm', 7, 2597, 265);
-		// wizard = new Humanoid('wizard', 5, 3830, 185)
+		wizard = new Humanoid('wizard', 5, 3830, 185)
 
     game.camera.follow(player);
 
@@ -270,11 +269,11 @@ function update() {
 	blackBat.batActions();
 	redBat.batActions();
 	blackBat2.batActions();
-	enemyKnight.humanoidActions('new');
+	enemyKnight.humanoidActions();
 	orchelm.humanoidActions('attacking');
-	enemyKnight2.humanoidActions('new');
-	orchelm2.humanoidActions('new');
-	// wizard.humanoidActions('new');
+	enemyKnight2.humanoidActions();
+	orchelm2.humanoidActions();
+	wizard.humanoidActions('spellCasting');
 }
 
 function render () {
