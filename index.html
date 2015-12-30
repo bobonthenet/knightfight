@@ -47,6 +47,7 @@ function preload() {
 		game.load.audio('OrcApproach', 'assets/sfx/OrcApproach.mp3');
 		game.load.audio('OrcHurt', 'assets/sfx/OrcHurt.mp3');
 		game.load.audio('OrcDeath', 'assets/sfx/OrcDeath.mp3');
+		game.load.audio('swing', 'assets/sfx/swing.wav')
 }
 
 var map;
@@ -71,6 +72,7 @@ function create() {
 	// var style = { font: "15px Press Start 2P", fill: "#000000", align: "left" };
 	// var t = game.add.text(game.world.centerX-350, 0, text, style);
 	// t.font = 'Press Start P2'
+		swing = game.add.audio('swing');
 		OrcApproach = game.add.audio('OrcApproach');
 		OrcHurt = game.add.audio('OrcHurt');
 		OrcDeath = game.add.audio('OrcDeath');
@@ -167,12 +169,16 @@ function create() {
 				b.checkWorldBounds = true;
 				b.events.onOutOfBounds.add(resetBullet, this);
 				b.body.allowGravity = false;
-				b.animations.add('left', [2, 3], 1, true);
+				b.animations.add('right' [0, 1])
+				b.animations.add('left', [2, 3]);
+				b.hitThisRound = false;
+				b.moveDir = 'left';
 		}
+
 }
 
 function update() {
-
+		game.physics.arcade.overlap(bullets, player, damagePlayer, null, bullet);
     game.physics.arcade.collide(player, collisionLayer);
     player.body.velocity.x = 0;
 
@@ -295,11 +301,13 @@ function update() {
 		if (zKey.isDown && player.moveDir == 'left')
 		{
 			player.animations.play('fightleft');
+			swing.play();
 			enableHitbox('sword');
 		}
 		if (zKey.isDown && player.moveDir == 'right')
 		{
 			player.animations.play('fightright');
+			swing.play();
 			enableHitbox('sword');
 		}
 
@@ -307,7 +315,7 @@ function update() {
 	redBat.batActions();
 	blackBat2.batActions();
 	enemyKnight.humanoidActions();
-	orchelm.humanoidActions('attacking');
+	orchelm.humanoidActions();
 	enemyKnight2.humanoidActions();
 	orchelm2.humanoidActions();
 	wizard.humanoidActions('spellCasting');
