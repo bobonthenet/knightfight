@@ -43,6 +43,7 @@ function preload() {
 		game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1/webfont.js');
 		game.load.audio('durchriss', ['assets/Durchriss-Low.ogg', 'assets/Durchriss-Low.ogg']);
 		game.load.spritesheet('fireball', 'assets/fireball.png', 30, 15, 3, 0, 5)
+		game.load.image('redheart', 'assets/redheart.png');
 }
 
 var map;
@@ -56,6 +57,7 @@ var bg;
 var blackBat;
 var sword;
 var music;
+var lives;
 
 function create() {
 	//
@@ -88,6 +90,15 @@ function create() {
     collisionLayer.resizeWorld();
 
 		game.physics.arcade.gravity.y = 250;
+
+		//  Lives
+		lives = game.add.group();
+		for (var i = 0; i < 5; i++)
+		{
+				var heart = lives.create(150 - (30 * i), 40, 'redheart');
+				heart.anchor.setTo(0.5, 0.5);
+				heart.fixedToCamera = true;
+		}
 
     player = game.add.sprite(0, 0, 'knightwalkjump', 0);
     game.physics.enable(player, Phaser.Physics.ARCADE);
@@ -281,12 +292,12 @@ function render () {
     // game.debug.text(game.time.physicsElapsed, 32, 32);
     // game.debug.body(player);
 		// game.debug.body(sword);
-		game.debug.text("health " + player.health, 16, 24);
+		// game.debug.text("health " + player.health, 16, 24);
     // game.debug.bodyInfo(player, 16, 24);
 		//  game.debug.text(blackBat.sprite.status, 16, 24);
 		// game.debug.text(game.physics.arcade.distanceBetween(blackBat.sprite, player), 32, 32)
-		game.debug.text("player x: " + player.body.x, 60, 40);
-		game.debug.text("player y: " + player.body.y, 60, 55);
+		// game.debug.text("player x: " + player.body.x, 60, 40);
+		// game.debug.text("player y: " + player.body.y, 60, 55);
 		// game.debug.body(enemyKnight.sprite);
 
 }

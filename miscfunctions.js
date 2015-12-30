@@ -135,6 +135,12 @@ function damagePlayer() {
 	if (this.hitThisRound == false) {
 		player.health -= 1;
 		this.hitThisRound = true;
+		live = lives.getFirstAlive();
+
+		if (live)
+		{
+				live.kill();
+		}
 		game.time.events.add(Phaser.Timer.SECOND, function(){this.hitThisRound = false;}, this);
 	}; // not sure about this.  Maybe the timer should be on the player instead of the bat.
 		 // currently "this" bat can only hit the player once per second but all the bats have their
@@ -144,6 +150,7 @@ function damagePlayer() {
 	if (player.health <= 0) {
 		playerDeath();
 	}
+
 }
 
 function playerDeath() {
