@@ -46,10 +46,10 @@ function humanoidActions(status) {
   switch(this.sprite.status) {
     case 'new': // TODO: Change this to use this.sprite.body.velocity.x
       if(this.sprite.moveDir == 'left'){
-        this.sprite.x -= 1
+        this.sprite.body.velocity.x = -50;
         this.sprite.animations.play('left');
       } else {
-        this.sprite.x += 1
+        this.sprite.body.velocity.x = 50;
         this.sprite.animations.play('right');
       }
       this.actionCounter ++;
