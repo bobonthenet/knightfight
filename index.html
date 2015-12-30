@@ -42,7 +42,7 @@ function preload() {
 		game.load.spritesheet('redbat', 'assets/redbat.png', 50, 45, 4, 0, 1);
 		game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1/webfont.js');
 		game.load.audio('durchriss', 'assets/music/Durchriss-Low.ogg');
-		game.load.spritesheet('fireball', 'assets/fireball.png', 30, 15, 3, 0, 5)
+		game.load.spritesheet('fireball', 'assets/fireball.png', 30, 15, 4, 0, 5)
 		game.load.image('redheart', 'assets/redheart.png');
 		game.load.audio('OrcApproach', 'assets/sfx/OrcApproach.mp3');
 		game.load.audio('OrcHurt', 'assets/sfx/OrcHurt.mp3');
@@ -61,6 +61,9 @@ var blackBat;
 var sword;
 var music;
 var lives;
+var bullets;
+var bulletTime = 0;
+var bullet;
 
 function create() {
 	//
@@ -141,13 +144,31 @@ function create() {
 		orchelm = new Humanoid('orchelm', 7, 1685, 265, OrcHurt, OrcDeath);
 		enemyKnight2 = new Humanoid('orcwalkjump', 5, 2435, 265, OrcHurt, OrcDeath);
 		orchelm2 = new Humanoid('orchelm', 7, 2597, 265, OrcHurt, OrcDeath);
-		wizard = new Humanoid('wizard', 5, 3830, 185)
+		wizard = new Humanoid('wizard', 5, 3830, 185, OrcHurt, OrcDeath)
 
     game.camera.follow(player);
 
     cursors = game.input.keyboard.createCursorKeys();
     jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 		zKey = game.input.keyboard.addKey(Phaser.Keyboard.Z);
+
+
+		// spellCasting
+		bullets = game.add.group();
+		bullets.enableBody = true;
+		bullets.physicsBodyType = Phaser.Physics.ARCADE;
+
+		for (var i = 0; i < 20; i++)
+		{
+				var b = bullets.create(0, 0, 'fireball');
+				b.name = 'fireball' + i;
+				b.exists = false;
+				b.visible = false;
+				b.checkWorldBounds = true;
+				b.events.onOutOfBounds.add(resetBullet, this);
+				b.body.allowGravity = false;
+				b.animations.add('left', [2, 3], 1, true);
+		}
 }
 
 function update() {

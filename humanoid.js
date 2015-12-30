@@ -19,10 +19,11 @@ function Humanoid (sprite, health, xpos, ypos, hurtsound, deathsound) {
   this.justWalkedInFlag = true;
   this.hurtsound = hurtsound;
   this.deathsound = deathsound;
+  this.justAttacked = false;
 
   this.dmgTextPool = game.add.group();
   var dmgText;
-  for (var d=0; d<50; d++) {
+  for (var d=0; d<10; d++) {
       dmgText = game.add.text(0, 0, '1');
       dmgText.font = 'Press Start 2P';
       dmgText.fontSize = 16;
@@ -105,6 +106,12 @@ function humanoidActions(status) {
       knockedBackAnimation(player, this);
       this.hurtsound.play()
       break;
+    case 'spellCasting':
+    if (this.justAttacked == false && this.health > 0)
+    {
+        fireBullet(this);
+    }
+    break;
   }
   if (sword.alive == true) {
     game.physics.arcade.overlap(this.sprite, sword, attacking, null, this);

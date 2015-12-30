@@ -20,6 +20,10 @@ function attacking() {
 			if(this.deathsound)
 			{
 				this.deathsound.play();
+				if (this.sprite.status =='spellCasting')
+				{
+					playerWins();
+				}
 			}
 		}
 	}
@@ -163,4 +167,42 @@ function playerDeath() {
 	gameOverText.fontSize = 32;
 	player.kill();
 	game.time.events.add(Phaser.Timer.SECOND * 3, function(){location.reload()}, this);
+}
+
+function playerWins() {
+	var gameOverText = game.add.text(game.camera.x + 100, game.camera.y + 150, 'You defeated the evil wizard! You win!');
+	gameOverText.wordWrap = true;
+	// gameOverText.anchor.set(0.5);
+	gameOverText.wordWrapWidth = 400
+	gameOverText.font = 'Press Start 2P';
+	gameOverText.fontSize = 32;
+	player.kill();
+	game.time.events.add(Phaser.Timer.SECOND * 5, function(){location.reload()}, this);
+}
+
+function fireBullet (enemy) {
+
+		enemy.justAttacked = true;
+
+    if (game.time.now > bulletTime)
+    {
+        bullet = bullets.getFirstExists(false);
+				enemy.sprite.animations.play('fightleft', 5, false);
+        if (bullet)
+        {
+            bullet.reset(enemy.sprite.x, enemy.sprite.y);
+            bullet.body.velocity.x = -300;
+						bullet.animations.play('left', 10, true);
+            bulletTime = game.time.now + 150;
+        }
+    }
+
+		game.time.events.add(Phaser.Timer.SECOND * 3, function(){enemy.justAttacked = false;}, this);
+}
+
+//  Called if the bullet goes out of the screen
+function resetBullet (bullet) {
+
+    bullet.kill();
+
 }
