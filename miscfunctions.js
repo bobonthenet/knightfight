@@ -17,6 +17,10 @@ function attacking() {
 
 		} else {
 			this.sprite.kill();
+			if(this.deathsound)
+			{
+				this.deathsound.play();
+			}
 		}
 	}
 }

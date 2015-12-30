@@ -1,4 +1,4 @@
-function Humanoid (sprite, health, xpos, ypos) {
+function Humanoid (sprite, health, xpos, ypos, hurtsound, deathsound) {
   this.health = health;
   this.sprite = game.add.sprite(xpos, ypos, sprite);
   this.sprite.status = 'new';
@@ -7,6 +7,7 @@ function Humanoid (sprite, health, xpos, ypos) {
   this.sprite.animations.add('fightright', [6, 5, 4], 10, true);
   this.sprite.animations.add('fightleft', [7, 8, 9], 10, true);
   this.humanoidActions = humanoidActions;
+  this.justWalkedIn = justWalkedIn;
   this.actionCounter = 0;
   this.sprite.moveDir = 'left';
   game.physics.enable(this.sprite, Phaser.Physics.ARCADE);
@@ -15,6 +16,9 @@ function Humanoid (sprite, health, xpos, ypos) {
   this.sprite.body.collideWorldBounds = true;
 	this.sprite.knockedTo = 0;
 	this.hitThisRound = false;
+  this.justWalkedInFlag = true;
+  this.hurtsound = hurtsound;
+  this.deathsound = deathsound;
 
   this.dmgTextPool = game.add.group();
   var dmgText;
@@ -99,10 +103,19 @@ function humanoidActions(status) {
       break;
     case 'knockBack':
       knockedBackAnimation(player, this);
+      this.hurtsound.play()
       break;
   }
   if (sword.alive == true) {
     game.physics.arcade.overlap(this.sprite, sword, attacking, null, this);
   }
   game.physics.arcade.overlap(this.sprite, player, damagePlayer, null, this);
-}
+};
+
+function justWalkedIn(sound) {
+  if(this.sprite.inCamera && this.justWalkedInFlag == true)
+  {
+    sound.play();
+    this.justWalkedInFlag = false;
+  }
+};

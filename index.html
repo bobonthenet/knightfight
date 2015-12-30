@@ -41,9 +41,12 @@ function preload() {
 		game.load.spritesheet('blackbat', 'assets/blackbat.png', 50, 45, 4, 0, 1);
 		game.load.spritesheet('redbat', 'assets/redbat.png', 50, 45, 4, 0, 1);
 		game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1/webfont.js');
-		game.load.audio('durchriss', ['assets/Durchriss-Low.ogg', 'assets/Durchriss-Low.ogg']);
+		game.load.audio('durchriss', 'assets/music/Durchriss-Low.ogg');
 		game.load.spritesheet('fireball', 'assets/fireball.png', 30, 15, 3, 0, 5)
 		game.load.image('redheart', 'assets/redheart.png');
+		game.load.audio('OrcApproach', 'assets/sfx/OrcApproach.mp3');
+		game.load.audio('OrcHurt', 'assets/sfx/OrcHurt.mp3');
+		game.load.audio('OrcDeath', 'assets/sfx/OrcDeath.mp3');
 }
 
 var map;
@@ -65,7 +68,9 @@ function create() {
 	// var style = { font: "15px Press Start 2P", fill: "#000000", align: "left" };
 	// var t = game.add.text(game.world.centerX-350, 0, text, style);
 	// t.font = 'Press Start P2'
-
+		OrcApproach = game.add.audio('OrcApproach');
+		OrcHurt = game.add.audio('OrcHurt');
+		OrcDeath = game.add.audio('OrcDeath');
 		music = game.add.audio('durchriss');
 		music.play();
 
@@ -132,10 +137,10 @@ function create() {
 		blackBat = new Bat('black', 2, 500, 50);
 		redBat = new Bat('red', 4, 800, 0);
 		blackBat2 = new Bat('black', 2, 700, 50);
-		enemyKnight = new Humanoid('orcwalkjump', 5, 945, 265);
-		orchelm = new Humanoid('orchelm', 7, 1685, 265);
-		enemyKnight2 = new Humanoid('orcwalkjump', 5, 2435, 265);
-		orchelm2 = new Humanoid('orchelm', 7, 2597, 265);
+		enemyKnight = new Humanoid('orcwalkjump', 5, 945, 265, OrcHurt, OrcDeath);
+		orchelm = new Humanoid('orchelm', 7, 1685, 265, OrcHurt, OrcDeath);
+		enemyKnight2 = new Humanoid('orcwalkjump', 5, 2435, 265, OrcHurt, OrcDeath);
+		orchelm2 = new Humanoid('orchelm', 7, 2597, 265, OrcHurt, OrcDeath);
 		wizard = new Humanoid('wizard', 5, 3830, 185)
 
     game.camera.follow(player);
@@ -285,6 +290,13 @@ function update() {
 	enemyKnight2.humanoidActions();
 	orchelm2.humanoidActions();
 	wizard.humanoidActions('spellCasting');
+
+	enemyKnight.justWalkedIn(OrcApproach);
+	orchelm.justWalkedIn(OrcApproach);
+	enemyKnight2.justWalkedIn(OrcApproach);
+	orchelm2.justWalkedIn(OrcApproach);
+
+
 }
 
 function render () {
