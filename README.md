@@ -18,6 +18,7 @@ The to do list below is an approximate roadmap for the development of Knight Fig
 
 ### TO DO:
 * Adjust enemy knockback.
+* Faster falling physics.
 * Fix the hold the attack button sword bug.
 * Add more enemies.
 * More sound F/X
