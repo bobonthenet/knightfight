@@ -49,6 +49,8 @@ function preload() {
 		game.load.audio('OrcDeath', 'assets/sfx/OrcDeath.mp3');
 		game.load.audio('swing', 'assets/sfx/swing.wav');
 		game.load.audio('magic', 'assets/sfx/magic.wav');
+		game.load.audio('batSqueek', 'assets/sfx/qubodupSqueakyRatAttack.ogg')
+		game.load.audio('batPain', 'assets/sfx/qubodupSqueakyRatDeath.ogg')
 }
 
 var map;
@@ -71,6 +73,8 @@ var swing;
 var OrcApprach;
 var OrcHurt;
 var OrcDeath;
+var batSqueek;
+var batPain;
 
 function create() {
 	//
@@ -84,6 +88,8 @@ function create() {
 		OrcHurt = game.add.audio('OrcHurt');
 		OrcDeath = game.add.audio('OrcDeath');
 		music = game.add.audio('durchriss');
+		batSqueek = game.add.audio('batSqueek');
+		batPain = game.add.audio('batPain');
 		music.play();
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -146,9 +152,9 @@ function create() {
 		sword.alive = false;
 		sword.hitThisRound = false;
 
-		blackBat = new Bat('black', 2, 500, 50);
-		redBat = new Bat('red', 4, 800, 0);
-		blackBat2 = new Bat('black', 2, 700, 50);
+		blackBat = new Bat('black', 2, 500, 200);
+		redBat = new Bat('red', 4, 800, 150);
+		blackBat2 = new Bat('black', 2, 700, 200);
 		enemyKnight = new Humanoid('orcwalkjump', 5, 945, 265, OrcHurt, OrcDeath);
 		orchelm = new Humanoid('orchelm', 7, 1685, 265, OrcHurt, OrcDeath);
 		enemyKnight2 = new Humanoid('orcwalkjump', 5, 2435, 265, OrcHurt, OrcDeath);
@@ -347,6 +353,7 @@ function render () {
 		// game.debug.text("player x: " + player.body.x, 60, 40);
 		// game.debug.text("player y: " + player.body.y, 60, 55);
 		// game.debug.body(enemyKnight.sprite);
+		// game.debug.soundInfo(magic, 20, 32);
 
 }
 </script>

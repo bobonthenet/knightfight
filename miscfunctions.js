@@ -188,6 +188,12 @@ function fireBullet (enemy) {
     {
         bullet = bullets.getFirstExists(false);
 				enemy.sprite.animations.play('fightleft', 5, false);
+				if (Math.floor(game.physics.arcade.distanceBetween(enemy.sprite, player)) > 1000)
+				{
+					magic.volume = 0;
+				}else{
+					magic.volume = 1 - Math.floor(game.physics.arcade.distanceBetween(enemy.sprite, player)) *.001;
+				}
 				magic.play();
         if (bullet)
         {

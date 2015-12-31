@@ -45,15 +45,30 @@ function batActions() {
 		} else {
 			this.sprite.x += 4
 		}
-		this.actionCounter ++;
-
+		var movRand = Math.floor((Math.random() * 5) + 1);
+		this.actionCounter += movRand;
 		if (this.actionCounter > 100 && this.sprite.moveDir == 'left')
 		{
 			this.sprite.moveDir = 'right';
 			this.actionCounter = 0;
+			// TODO: This volume logic is techically broken because it uses a generic sound instead of one belonging to a bat.
+			if (Math.floor(game.physics.arcade.distanceBetween(this.sprite, player)) > 1000)
+			{
+				batSqueek.volume = 0;
+			}else{
+				batSqueek.volume = 1 - Math.floor(game.physics.arcade.distanceBetween(this.sprite, player)) *.001;
+			}
+			batSqueek.play();
 		} else if (this.actionCounter > 100 && this.sprite.moveDir == 'right'){
 			this.sprite.moveDir = 'left';
 			this.actionCounter = 0;
+			if (Math.floor(game.physics.arcade.distanceBetween(this.sprite, player)) > 1000)
+			{
+				batSqueek.volume = 0;
+			}else{
+				batSqueek.volume = 1 - Math.floor(game.physics.arcade.distanceBetween(this.sprite, player)) *.001;
+			}
+			batSqueek.play();
 		}
 
 	} else if (this.sprite.status == 'new' || this.sprite.status == 'attacking') {
@@ -68,6 +83,7 @@ function batActions() {
 		}
 	} else if (this.sprite.status == 'knockBack') {
 		knockedBackAnimation(player, this)
+		batPain.play();
 	}
 	if (sword.alive == true) {
 		game.physics.arcade.overlap(this.sprite, sword, attacking, null, this);
