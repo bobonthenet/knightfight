@@ -18,9 +18,9 @@ The to do list below is an approximate roadmap for the development of Knight Fig
 
 ### TO DO:
 * Adjust enemy knockback.
-* Faster falling physics.
 * Fix the hold the attack button sword bug.
 * Fix the bug where you can win the game and then die.
+* Fix bug that causes you to get stuck after the first hill.
 * Add more enemies.
 * More sound F/X
 * Title/load screen
