@@ -213,3 +213,7 @@ function resetBullet (bullet) {
     bullet.kill();
 
 }
+
+function goFull() {
+		game.scale.startFullScreen(false);
+}

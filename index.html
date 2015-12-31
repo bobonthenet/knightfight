@@ -11,6 +11,7 @@
 	<!-- end of cache prevention stuff.  Will remove when I'm done. -->
     <title>Knight Fight!</title>
     <script src="phaser.js"></script>
+		<script src="phaser-virtual-joystick.min.js" type="text/javascript"></script>
 		<script src="bats.js"></script>
 		<script src="humanoid.js"></script>
 		<script src="player.js"></script>
@@ -51,6 +52,7 @@ function preload() {
 		game.load.audio('magic', 'assets/sfx/magic.wav');
 		game.load.audio('batSqueek', 'assets/sfx/qubodupSqueakyRatAttack.ogg')
 		game.load.audio('batPain', 'assets/sfx/qubodupSqueakyRatDeath.ogg')
+		game.load.atlas('generic', 'assets/generic-joystick.png', 'assets/generic-joystick.json');
 }
 
 var map;
@@ -75,8 +77,34 @@ var OrcHurt;
 var OrcDeath;
 var batSqueek;
 var batPain;
+var pad;
+var stick;
+var buttonA;
+var buttonB;
+var doOnce = 0;
 
 function create() {
+	if (!game.device.desktop){ game.input.onDown.add(goFull, this); } //go fullscreen on mobile devices
+	pad = game.plugins.add(Phaser.VirtualJoystick);
+
+	stick = pad.addStick(0, 0, 200, 'generic');
+	stick.scale = 0.5;
+	stick.alignBottomLeft(20);
+	stick.motionLock = Phaser.VirtualJoystick.HORIZONTAL;
+	if (game.device.desktop){stick.alpha = 0};
+
+
+	buttonA = pad.addButton(650, 350, 'generic', 'button1-up', 'button1-down');
+	buttonA.scale = 0.75;
+	if (game.device.desktop){buttonA.alpha = 0};
+	// buttonA.alignBottomRight(100);
+
+	buttonB = pad.addButton(750, 300, 'generic', 'button2-up', 'button2-down');
+	buttonB.scale = 0.75;
+	if (game.device.desktop){buttonB.alpha = 0};
+	// buttonB.alignBottomRight(20);
+
+
 	//
 	// var text = "Use right and left keys to move.\n space to jump \n and z to attack.";
 	// var style = { font: "15px Press Start 2P", fill: "#000000", align: "left" };
@@ -198,7 +226,7 @@ function update() {
 		switch(player.status) {
 			case 'attacking':
 				// TODO: This logic is repeated a lot.  Use a function.
-		    if (cursors.left.isDown)
+		    if (cursors.left.isDown  || (stick.isDown && stick.forceX < 0))
 		    {
 					player.body.setSize(50, 55, 25, 15);
 		        player.body.velocity.x = -150;
@@ -214,7 +242,7 @@ function update() {
 							player.frame = 10;
 						}
 		    }
-		    else if (cursors.right.isDown)
+		    else if (cursors.right.isDown  || (stick.isDown && stick.forceX > 0))
 		    {
 					player.body.setSize(50, 55, 0, 15);
 		        player.body.velocity.x = 150;
@@ -249,7 +277,7 @@ function update() {
 		        }
 		    }
 
-		    if (jumpButton.isDown && player.body.onFloor() && game.time.now > jumpTimer)
+		    if ((jumpButton.isDown || buttonB.isDown) && player.body.onFloor() && game.time.now > jumpTimer)
 		    {
 		        player.body.velocity.y = -250;
 		        jumpTimer = game.time.now + 750;
@@ -259,7 +287,7 @@ function update() {
 			break;
 			case 'knockedBack':
 				knockedBackAnimation(player.whoHitMe, player);
-				if (cursors.left.isDown)
+				if (cursors.left.isDown || (stick.isDown && stick.forceX < 0))
 				{
 					player.body.setSize(50, 55, 25, 15);
 						if (player.moveDir != 'left')
@@ -273,7 +301,7 @@ function update() {
 							player.frame = 10;
 						}
 				}
-				else if (cursors.right.isDown)
+				else if (cursors.right.isDown  || (stick.isDown && stick.forceX > 0))
 				{
 					player.body.setSize(50, 55, 0, 15);
 						if (player.moveDir != 'right')
@@ -311,13 +339,13 @@ function update() {
 			break;
 		}
 
-		if (zKey.isDown && player.moveDir == 'left')
+		if ((zKey.isDown || buttonA.isDown) && player.moveDir == 'left')
 		{
 			player.animations.play('fightleft');
 			swing.play();
 			enableHitbox('sword');
 		}
-		if (zKey.isDown && player.moveDir == 'right')
+		if ((zKey.isDown || buttonA.isDown) && player.moveDir == 'right')
 		{
 			player.animations.play('fightright');
 			swing.play();
