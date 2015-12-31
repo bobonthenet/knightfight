@@ -84,20 +84,24 @@ var buttonB;
 var doOnce = 0;
 
 function create() {
-	if (!game.device.desktop){ game.input.onDown.add(gofull, this); } //go fullscreen on mobile devices
+	if (!game.device.desktop){ game.input.onDown.add(goFull, this); } //go fullscreen on mobile devices
 	pad = game.plugins.add(Phaser.VirtualJoystick);
 
 	stick = pad.addStick(0, 0, 200, 'generic');
 	stick.scale = 0.5;
 	stick.alignBottomLeft(20);
 	stick.motionLock = Phaser.VirtualJoystick.HORIZONTAL;
+	if (game.device.desktop){stick.alpha = 0};
+
 
 	buttonA = pad.addButton(650, 350, 'generic', 'button1-up', 'button1-down');
 	buttonA.scale = 0.75;
+	if (game.device.desktop){buttonA.alpha = 0};
 	// buttonA.alignBottomRight(100);
 
 	buttonB = pad.addButton(750, 300, 'generic', 'button2-up', 'button2-down');
 	buttonB.scale = 0.75;
+	if (game.device.desktop){buttonB.alpha = 0};
 	// buttonB.alignBottomRight(20);
 
 
