@@ -47,7 +47,8 @@ function preload() {
 		game.load.audio('OrcApproach', 'assets/sfx/OrcApproach.mp3');
 		game.load.audio('OrcHurt', 'assets/sfx/OrcHurt.mp3');
 		game.load.audio('OrcDeath', 'assets/sfx/OrcDeath.mp3');
-		game.load.audio('swing', 'assets/sfx/swing.wav')
+		game.load.audio('swing', 'assets/sfx/swing.wav');
+		game.load.audio('magic', 'assets/sfx/magic.wav');
 }
 
 var map;
@@ -65,6 +66,11 @@ var lives;
 var bullets;
 var bulletTime = 0;
 var bullet;
+var magic;
+var swing;
+var OrcApprach;
+var OrcHurt;
+var OrcDeath;
 
 function create() {
 	//
@@ -72,6 +78,7 @@ function create() {
 	// var style = { font: "15px Press Start 2P", fill: "#000000", align: "left" };
 	// var t = game.add.text(game.world.centerX-350, 0, text, style);
 	// t.font = 'Press Start P2'
+		magic = game.add.audio('magic');
 		swing = game.add.audio('swing');
 		OrcApproach = game.add.audio('OrcApproach');
 		OrcHurt = game.add.audio('OrcHurt');
@@ -146,7 +153,7 @@ function create() {
 		orchelm = new Humanoid('orchelm', 7, 1685, 265, OrcHurt, OrcDeath);
 		enemyKnight2 = new Humanoid('orcwalkjump', 5, 2435, 265, OrcHurt, OrcDeath);
 		orchelm2 = new Humanoid('orchelm', 7, 2597, 265, OrcHurt, OrcDeath);
-		wizard = new Humanoid('wizard', 5, 3830, 185, OrcHurt, OrcDeath)
+		wizard = new Humanoid('wizard', 5, 3810, 185, OrcHurt, OrcDeath)
 
     game.camera.follow(player);
 

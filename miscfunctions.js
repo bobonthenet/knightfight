@@ -188,9 +188,10 @@ function fireBullet (enemy) {
     {
         bullet = bullets.getFirstExists(false);
 				enemy.sprite.animations.play('fightleft', 5, false);
+				magic.play();
         if (bullet)
         {
-            bullet.reset(enemy.sprite.x, enemy.sprite.y);
+            bullet.reset(enemy.sprite.x, enemy.sprite.y + player.height * .5);
             bullet.body.velocity.x = -300;
 						bullet.animations.play('left', 10, true);
             bulletTime = game.time.now + 150;
