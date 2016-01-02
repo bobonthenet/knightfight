@@ -18,6 +18,8 @@ The to do list below is an approximate roadmap for the development of Knight Fig
 
 ### TO DO:
 * Adjust enemy knockback.
+* ok the bats are annoying. 
+* swap A and B buttons. 
 * Fix the hold the attack button sword bug.
 * Fix the bug where you can win the game and then die.
 * Fix bug that causes you to get stuck after the first hill.
@@ -26,4 +28,3 @@ The to do list below is an approximate roadmap for the development of Knight Fig
 * Title/load screen
 * End screen with credits or something
 * Secret mode with blood turned on.
-* Mobile controls
