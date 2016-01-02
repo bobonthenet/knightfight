@@ -35,7 +35,7 @@ function knockedBackAnimation(attacker, attacked) {
 	attacker = attacker.sprite != undefined ? attacker.sprite : attacker;
 	attacked = attacked.sprite != undefined ? attacked.sprite : attacked;
 	// Initialize knock back
-	var distance = 75;
+	var distance = 20;
 	var knockedDirection = attacker.moveDir; // I don't really like how this is used.  I can probably get rid of it.
 
 	if(attacked.knockedTo == 0)
@@ -75,7 +75,7 @@ function knockedBackAnimation(attacker, attacked) {
 			// Player has been knocked back as far as he needs to, reset
 			if(attacked.body.x <= attacked.knockedTo || attacked.body.x <= 0)
 			{
-				attacked.knockedTo 		= 0;
+				attacked.knockedTo = 0;
 				knockback 		= false;
 				attacked.status = 'attacking';
 			}
@@ -98,7 +98,7 @@ function knockedBackAnimation(attacker, attacked) {
 			}
 
 			// Player has been knocked back as far as he needs to, reset
-			if(attacked.body.x >= attacked.knockedTo || attacked.body.x >= game.canvas.width + 30)
+			if(attacked.body.x >= attacked.knockedTo && ((attacked.body.allowGravity && attacked.body.onFloor()) || (!attacked.body.allowGravity && !attacked.body.onFloor())))
 			{
 				attacked.knockedTo 		= 0;
 				knockback 		= false;
