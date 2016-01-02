@@ -17,14 +17,7 @@ You can play the current work in progress version of Knight Fight by visiting ht
 The to do list below is an approximate roadmap for the development of Knight Fight.  I will mostly be completing these in order but I might do something later in the list first if it seems easier, it makes more sense at the time or I just feel like it.  For the most part though expect the first thing on the list to be completed before the last.  As I think of new features or functionality I want to add to the game I'll add it to the list below and remove things as I complete them.
 
 ### TO DO:
-* Adjust enemy knockback.
-* ok the bats are annoying. 
-* swap A and B buttons. 
+* Fix bug that causes enemies to keep making noise after they die.
 * Fix the hold the attack button sword bug.
 * Fix the bug where you can win the game and then die.
 * Fix bug that causes you to get stuck after the first hill.
-* Add more enemies.
-* More sound F/X
-* Title/load screen
-* End screen with credits or something
-* Secret mode with blood turned on.
