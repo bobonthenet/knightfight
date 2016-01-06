@@ -41,7 +41,7 @@ function knockedBackAnimation(attacker, attacked) {
 	if(attacked.knockedTo == 0)
 	{
 		immortal				= true;
-
+		attacked.hurtsound.play()
 
 		switch(knockedDirection)
 		{
@@ -176,7 +176,6 @@ function playerWins() {
 	gameOverText.wordWrapWidth = 400
 	gameOverText.font = 'Press Start 2P';
 	gameOverText.fontSize = 32;
-	player.kill();
 	game.time.events.add(Phaser.Timer.SECOND * 5, function(){location.reload()}, this);
 }
 

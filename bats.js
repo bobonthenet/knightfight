@@ -1,4 +1,4 @@
-function Bat (color, health, xpos, ypos) {
+function Bat (color, health, xpos, ypos, hurtsound) {
 	this.color = color;
 	this.health = health;
 	// this.xpos = xpos;
@@ -14,6 +14,7 @@ function Bat (color, health, xpos, ypos) {
   this.sprite.body.allowGravity = false;
 	this.sprite.knockedTo = 0;
 	this.hitThisRound = false; // The bat should only be able to hit the player once per second.
+	this.sprite.hurtsound = hurtsound;
 
 	this.dmgTextPool = game.add.group();
 	var dmgText;
@@ -51,26 +52,20 @@ function batActions() {
 		{
 			this.sprite.moveDir = 'right';
 			this.actionCounter = 0;
-			// TODO: This volume logic is techically broken because it uses a generic sound instead of one belonging to a bat.
-			if (Math.floor(game.physics.arcade.distanceBetween(this.sprite, player)) > 1000)
-			{
-				batSqueek.volume = 0;
-			}else{
-				batSqueek.volume = 1 - Math.floor(game.physics.arcade.distanceBetween(this.sprite, player)) *.001;
-			}
-			batSqueek.play();
 		} else if (this.actionCounter > 100 && this.sprite.moveDir == 'right'){
 			this.sprite.moveDir = 'left';
 			this.actionCounter = 0;
-			if (Math.floor(game.physics.arcade.distanceBetween(this.sprite, player)) > 1000)
+		}
+		if (Math.floor(game.physics.arcade.distanceBetween(this.sprite, player)) > 1000)
 			{
 				batSqueek.volume = 0;
 			}else{
 				batSqueek.volume = 1 - Math.floor(game.physics.arcade.distanceBetween(this.sprite, player)) *.001;
 			}
+		if (Math.floor((Math.random() * 200) + 1) == 1 && this.sprite.alive == true)
+		{
 			batSqueek.play();
 		}
-
 	} else if (this.sprite.status == 'new' || this.sprite.status == 'attacking') {
 		if (this.sprite.status == 'new') {
 			this.sprite.status = 'attacking'
@@ -83,7 +78,6 @@ function batActions() {
 		}
 	} else if (this.sprite.status == 'knockBack') {
 		knockedBackAnimation(player, this)
-		batPain.play();
 	}
 	if (sword.alive == true) {
 		game.physics.arcade.overlap(this.sprite, sword, attacking, null, this);
