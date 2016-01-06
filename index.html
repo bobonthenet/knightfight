@@ -48,6 +48,7 @@ function preload() {
 		game.load.audio('OrcApproach', 'assets/sfx/OrcApproach.mp3');
 		game.load.audio('OrcHurt', 'assets/sfx/OrcHurt.mp3');
 		game.load.audio('OrcDeath', 'assets/sfx/OrcDeath.mp3');
+		game.load.audio('knightHurt', 'assets/sfx/Human_Good_17.mp3');
 		game.load.audio('swing', 'assets/sfx/swing.wav');
 		game.load.audio('magic', 'assets/sfx/magic.wav');
 		game.load.audio('batSqueek', 'assets/sfx/qubodupSqueakyRatAttack.ogg')
@@ -114,6 +115,7 @@ function create() {
 		swing = game.add.audio('swing');
 		OrcApproach = game.add.audio('OrcApproach');
 		OrcHurt = game.add.audio('OrcHurt');
+		knightHurt = game.add.audio('knightHurt');
 		OrcDeath = game.add.audio('OrcDeath');
 		music = game.add.audio('durchriss');
 		batSqueek = game.add.audio('batSqueek');
@@ -166,6 +168,7 @@ function create() {
 		player.whoHitMe = '';
 		player.health = 5;
 		player.knockedTo = 0;
+		player.hurtsound = knightHurt;
 		hitboxes = game.add.group();
 		hitboxes.enableBody = true;
 		player.addChild(hitboxes);
@@ -180,9 +183,9 @@ function create() {
 		sword.alive = false;
 		sword.hitThisRound = false;
 
-		blackBat = new Bat('black', 2, 500, 200);
-		redBat = new Bat('red', 4, 800, 150);
-		blackBat2 = new Bat('black', 2, 700, 200);
+		blackBat = new Bat('black', 2, 500, 200, batPain);
+		redBat = new Bat('red', 4, 800, 150, batPain);
+		blackBat2 = new Bat('black', 2, 700, 200, batPain);
 		enemyKnight = new Humanoid('orcwalkjump', 5, 945, 265, OrcHurt, OrcDeath);
 		orchelm = new Humanoid('orchelm', 7, 1685, 265, OrcHurt, OrcDeath);
 		enemyKnight2 = new Humanoid('orcwalkjump', 5, 2435, 265, OrcHurt, OrcDeath);
@@ -380,7 +383,7 @@ function render () {
 		// game.debug.text(game.physics.arcade.distanceBetween(blackBat.sprite, player), 32, 32)
 		// game.debug.text("player x: " + player.body.x, 60, 40);
 		// game.debug.text("player y: " + player.body.y, 60, 55);
-		// game.debug.body(enemyKnight.sprite);
+		// game.debug.body(wizard.sprite);
 		// game.debug.soundInfo(magic, 20, 32);
 
 }

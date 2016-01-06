@@ -17,7 +17,7 @@ function Humanoid (sprite, health, xpos, ypos, hurtsound, deathsound) {
 	this.sprite.knockedTo = 0;
 	this.hitThisRound = false;
   this.justWalkedInFlag = true;
-  this.hurtsound = hurtsound;
+  this.sprite.hurtsound = hurtsound;
   this.deathsound = deathsound;
   this.justAttacked = false;
 
@@ -104,12 +104,13 @@ function humanoidActions(status) {
       break;
     case 'knockBack':
       knockedBackAnimation(player, this);
-      this.hurtsound.play()
+      //this.hurtsound.play()
       break;
     case 'spellCasting':
     if (this.justAttacked == false && this.health > 0)
     {
-        fireBullet(this);
+      this.sprite.body.setSize(50, 55, 25, 15);
+      fireBullet(this);
     }
     break;
   }
