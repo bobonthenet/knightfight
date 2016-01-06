@@ -112,7 +112,7 @@ function knockedBackAnimation(attacker, attacked) {
 	// attacked.body.sprite.alpha = 0.5;
 
 }
-
+// This isn't really working at all the way I wanted and I see why, but I don't feel like fixing it.
 function enableHitbox(hitboxName) {
     for(var i = 0; i < hitboxes.children.length; i++){
           if(hitboxes.children[i].name === hitboxName){
