@@ -14,7 +14,7 @@ You can play the current work in progress version of Knight Fight by visiting ht
   * Iwan 'qubodup' Gabovitch http://opengameart.org/users/qubodup
 
 ## Development Plan
-The to do list below is an approximate roadmap for the development of Knight Fight.  I will mostly be completing these in order but I might do something later in the list first if it seems easier, it makes more sense at the time or I just feel like it.  For the most part though expect the first thing on the list to be completed before the last.  As I think of new features or functionality I want to add to the game I'll add it to the list below and remove things as I complete them.
+Knight Fight is now complete.  There are a couple of bugs remaining but unless someone finds something major I probably won't fix them.  This is because I want to get started on Knight Fight II! Knight Fight II will be a complete code rewrite of this game using everything I learned from Knight Fight I.  I'll also add some new enemies and a new game map just to really keep things interesting.
 
 ### TO DO:
 * Fix the hold the attack button sword bug.
