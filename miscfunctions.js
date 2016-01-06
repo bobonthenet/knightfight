@@ -214,5 +214,10 @@ function resetBullet (bullet) {
 }
 
 function goFull() {
-		game.scale.startFullScreen(false);
+	var width = window.innerWidth;
+	var height = 400 * (width/800)
+	game.scale.startFullScreen(false);
+	game.scale.maxWidth = width;
+	game.scale.maxHeight = height;
+	game.scale.refresh();
 }
